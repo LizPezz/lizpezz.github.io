@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Liz Pezz — Storie di Carbone</title>
+    <meta name="description" content="Storie di Carbone: il laboratorio di Liz Pezz, dove carta, materia e immaginazione si incontrano per dare vita a nuovi mondi." />
+    <script>document.documentElement.classList.add('js')</script>
+  </head>
+  <body>
+    <main>
+      <!-- HERO -->
+      <section class="section theme-beige hero" id="top">
+        <nav data-nav></nav>
+        <p class="hero__brand" data-anim="fade">LIZ PEZZ</p>
+        <div class="hero__copy">
+          <h1 class="display" data-anim="rise">Storie di Carbone</h1>
+          <p class="lead" data-anim="rise" style="--d: 0.15s">
+            A volte per raccontare una storia basta poco: un carboncino, un foglio e il ritmo di poche linee tracciate
+            con cura. I tratti diventano lo spartito di una narrazione. Questo spazio è il mio laboratorio, dove carta,
+            materia e immaginazione si incontrano per dare vita a nuovi mondi.
+          </p>
+          <a class="btn" href="#contatti" data-anim="wipe"><span>Lavora con</span></a>
+        </div>
+        <!-- sfondo: bozza (schizzo) + colore che si dipinge col mouse -->
+        <div class="hero__art" data-anim="scribble">
+          <div class="color-reveal" data-color="hero-colore">
+            <img data-img="hero-bozza" alt="Illustrazione a carboncino di una ragazza con le corna che sfiora un velo" />
+          </div>
+        </div>
+      </section>
+
+      <!-- INTRO -->
+      <section class="section theme-brown intro">
+        <nav data-nav></nav>
+        <div class="intro__grid">
+          <div>
+            <p class="kicker" data-anim="rise">Ciao, io sono Liz,<br />e…</p>
+            <h2 class="display" data-anim="rise" style="--d: 0.1s">Racconto storie</h2>
+          </div>
+          <div>
+            <p class="intro__text" data-anim="rise" style="--d: 0.2s">
+              Attraverso il visual storytelling, una narrazione prende vita: evoca sfumature, atmosfere e sensazioni
+              dove la parola scritta non basta. Se cerchi un impatto visivo capace di distinguersi, vieni a scoprire:
+            </p>
+            <div class="intro__buttons">
+              <a class="btn" href="#racconti" data-anim="wipe"><span>Racconti di carbone</span></a>
+              <a class="btn" href="#libri" data-anim="wipe"><span>Libri di carbone</span></a>
+              <a class="btn" href="#mio-racconto" data-anim="wipe"><span>Il mio racconto</span></a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- RACCONTI DI CARBONE -->
+      <section class="section theme-dark racconti" id="racconti">
+        <nav data-nav></nav>
+        <h2 class="title" data-anim="rise">Racconti<br />di carbone</h2>
+        <div class="carousel" data-anim="fade" data-speed="fast" aria-label="Racconti di carbone"></div>
+      </section>
+
+      <!-- LIBRI DI CARBONE -->
+      <section class="section theme-brown libri" id="libri">
+        <nav data-nav></nav>
+        <div class="libri__grid">
+          <div>
+            <h2 class="title" data-anim="rise">Libri di carbone</h2>
+            <h3 class="subtitle" data-anim="rise" style="--d: 0.1s">L’inconfondibile profumo<br />della carta</h3>
+            <p class="libri__text" data-anim="rise" style="--d: 0.2s">
+              qualcosa di unico, di una pagina appena stampata e del tempo dedicato a sfogliarla.<br />
+              Per un regalo indimenticabile o una coccola personale...
+            </p>
+            <div class="libri__picker" role="group" aria-label="Scegli un libro"></div>
+          </div>
+          <!-- modello 3D (three.js): dissolvenza veloce di entrata -->
+          <div class="libri__stage" data-anim="fade" data-speed="fast" aria-label="Modello 3D del libro: trascina per ruotarlo"></div>
+        </div>
+      </section>
+
+      <!-- IL MIO RACCONTO -->
+      <section class="section theme-peach mio" id="mio-racconto">
+        <nav data-nav></nav>
+        <div class="mio__grid">
+          <div class="mio__left">
+            <h2 class="title" data-anim="rise">Il mio<br />racconto</h2>
+            <figure class="mio__art" data-anim="scribble">
+              <img data-img="enea" alt="Schizzo di Enea, un ragazzo alato inginocchiato" />
+            </figure>
+          </div>
+          <div class="mio__right">
+            <h3 class="subtitle" data-anim="rise">E qui diventa<br />complicato…</h3>
+            <div data-anim="rise" style="--d: 0.1s">
+              <p>
+                Su un’isola remota di un pianeta lontano, forse in una galassia sconosciuta, vive un ragazzo nato con
+                ali brune, maestose e forti. Fin da bambino sorvolava pianure sconfinate, superava vette altissime,
+                solcava i mari e sfiorava le nuvole. Crescendo, però, quelle ali hanno smesso di svilupparsi.
+              </p>
+              <p>
+                Oggi Enea attraversa il suo mondo alla disperata ricerca di una cura. Quello che ancora non sa è che il
+                mistero è ben più fitto: l'origine del suo male affonda le radici in un segreto antico e complesso, un
+                mosaico di storie e sentimenti in cui si intrecciano destini umani e creature mistiche, sogni infranti,
+                grandi amori e tradimenti inconfessabili.
+              </p>
+            </div>
+            <a class="btn mio__cta" href="/galleria.html" data-anim="wipe"><span>Esplora la galleria</span></a>
+          </div>
+        </div>
+        <p class="mio__follow" data-anim="fade">
+          Vuoi accompagnare Enea nel suo viaggio?<br />
+          Vai alla sezione <a href="#contatti">CONTATTI</a>
+        </p>
+      </section>
+
+      <!-- CONTATTI -->
+      <section class="section theme-beige contatti" id="contatti">
+        <nav data-nav></nav>
+        <div class="contatti__grid">
+          <div>
+            <h2 class="title" data-anim="rise">Contatti</h2>
+            <h3 class="subtitle" data-anim="rise" style="--d: 0.1s">
+              Sei un editore o un autore che desidera dare vita a una propria storia?
+            </h3>
+            <p data-anim="rise" style="--d: 0.2s">
+              Contattami compilando il modulo qui a fianco e seleziona la tipologia di richiesta dal menu a tendina.
+              Raccontami la tua idea: descrivi il personaggio, la storia o l’universo narrativo che vorresti creare
+              insieme a me. Ti risponderò entro una settimana e potremo iniziare a costruire il tuo mondo!
+            </p>
+          </div>
+          <!-- riquadro da completare: scarabocchio -->
+          <form class="form" id="contact-form" data-anim="scribble">
+            <input name="nome" type="text" placeholder="Il tuo nome*" aria-label="Il tuo nome" autocomplete="name" required />
+            <input name="email" type="email" placeholder="La tua mail*" aria-label="La tua mail" autocomplete="email" required />
+            <select name="oggetto" aria-label="Oggetto" required>
+              <option value="" disabled selected>Oggetto*</option>
+            </select>
+            <textarea name="richiesta" rows="3" placeholder="La tua richiesta*" aria-label="La tua richiesta" required></textarea>
+            <div class="form__foot">
+              <label class="form__consent"><input type="checkbox" name="informativa" required /> informativa xxxx</label>
+              <button class="form__send" type="submit">Invia</button>
+            </div>
+            <p class="form__status" role="status"></p>
+          </form>
+        </div>
+        <div class="contatti__foot" data-anim="fade">
+          <p>
+            Segui i miei canali social per scoprire tutti i lavori e i dietro le quinte.<br />
+            Se ti fa piacere, puoi aiutarmi a dare vita a questo racconto sostenendo il progetto con una piccola
+            donazione.
+          </p>
+          <div class="contatti__thanks">
+            <p>Grazie di cuore!</p>
+            <div class="socials"></div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <script type="module" src="/src/pages/home.js"></script>
+  </body>
+</html>

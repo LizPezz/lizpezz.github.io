@@ -1,0 +1,976 @@
+/* ───────── Base ───────── */
+:root {
+  --beige: #ccc7bb;
+  --brown: #403a34;
+  --dark: #1f1b16;
+  --peach: #f9e1d1;
+  --ink: #3d3731;
+  --paper: #d3cec4;
+  --font-head: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --font-body: 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+  --gutter: clamp(1.25rem, 7vw, 6.5rem);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--dark);
+  color: #fff;
+  font: 400 1.05rem/1.35 var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+h1,
+h2,
+h3,
+p,
+figure {
+  margin: 0;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* ───────── Temi delle sezioni ───────── */
+.section {
+  position: relative;
+  background: var(--bg);
+  color: var(--fg);
+  overflow: hidden;
+}
+.theme-beige {
+  --bg: var(--beige);
+  --fg: #fff;
+  --nav: var(--ink);
+}
+.theme-brown {
+  --bg: var(--brown);
+  --fg: #fff;
+}
+.theme-dark {
+  --bg: var(--dark);
+  --fg: var(--paper);
+  --nav: #fff;
+}
+.theme-peach {
+  --bg: var(--peach);
+  --fg: var(--ink);
+}
+.theme-story {
+  --bg: #14110d;
+  --fg: var(--paper);
+  --nav: #fff;
+}
+
+/* ───────── Menu (ripetuto in cima a ogni sezione) ───────── */
+.nav {
+  position: relative;
+  z-index: 5;
+  display: grid;
+  grid-template-columns: 1.15fr 1.05fr 1.6fr auto;
+  gap: 1rem;
+  padding: 2.6rem var(--gutter) 0;
+  font: 400 0.95rem/1.3 var(--font-head);
+  color: var(--nav, var(--fg));
+}
+.nav a {
+  justify-self: start;
+  padding: 0 1.6em 0.15em 0;
+  border-bottom: 1px solid currentColor;
+  text-decoration: none;
+}
+.nav a:last-child {
+  padding-right: 0;
+  text-transform: uppercase;
+}
+
+/* ───────── Tipografia ───────── */
+.display {
+  font: 400 clamp(2.7rem, 5.4vw, 4.6rem) / 1.05 var(--font-head);
+  letter-spacing: -0.01em;
+}
+.title {
+  display: inline-block;
+  padding: 0 1.1em 0.3em 0;
+  border-bottom: 2px solid currentColor;
+  font: 400 clamp(2.6rem, 5.2vw, 4.4rem) / 1.08 var(--font-head);
+  letter-spacing: -0.01em;
+}
+.subtitle {
+  font: 400 clamp(1.3rem, 2.1vw, 1.75rem) / 1.15 var(--font-head);
+}
+.kicker {
+  font: 500 clamp(1.2rem, 2vw, 1.65rem) / 1.1 var(--font-head);
+  text-transform: uppercase;
+}
+.lead {
+  font-size: clamp(1rem, 1.35vw, 1.15rem);
+}
+
+/* ───────── Pulsanti (riquadri bianchi) ───────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 16rem;
+  padding: 1.05rem 2.2rem;
+  border: 0;
+  background: #fff;
+  color: #111;
+  font: 900 0.8rem/1.3 var(--font-body);
+  letter-spacing: 0.2em;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background-color 0.25s;
+}
+.btn:hover,
+.btn[aria-pressed='true'] {
+  background: var(--beige);
+}
+.theme-beige .btn:hover {
+  background: var(--peach);
+}
+.btn span {
+  display: inline-block;
+}
+.btn--sm {
+  min-width: 0;
+  width: 9.5rem;
+  padding: 0.7rem 0.8rem;
+  font-size: 0.58rem;
+}
+:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
+}
+
+/* ───────── Animazioni (note azzurre del progetto grafico) ───────── */
+/* in salita: 1.0s entrata, 0.5s uscita */
+.js [data-anim='rise'] {
+  opacity: 0;
+  transform: translateY(2.5rem);
+  transition:
+    opacity 0.5s ease,
+    transform 0.5s ease;
+}
+.js [data-anim='rise'].is-in {
+  opacity: 1;
+  transform: none;
+  transition-duration: 1s;
+  transition-timing-function: cubic-bezier(0.2, 0.7, 0.2, 1);
+  transition-delay: var(--d, 0s);
+}
+.js [data-anim='rise'].is-out {
+  transform: translateY(-2.5rem);
+}
+
+/* dissolvenza: velocità media (veloce con data-speed="fast") */
+.js [data-anim='fade'] {
+  opacity: 0;
+  transition: opacity 0.9s ease;
+}
+.js [data-anim='fade'][data-speed='fast'] {
+  transition-duration: 0.35s;
+}
+.js [data-anim='fade'].is-in {
+  opacity: 1;
+}
+
+/* lineare da sx a dx, entrata e uscita */
+.js [data-anim='wipe'] > span {
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path 0.8s linear;
+}
+.js [data-anim='wipe'].is-in > span {
+  clip-path: inset(0);
+}
+.js [data-anim='wipe'].is-out > span {
+  clip-path: inset(0 0 0 100%);
+}
+
+/* battitura a macchina, parola per parola */
+[data-anim='type'] {
+  --step: 90ms;
+}
+[data-anim='type'][data-speed='fast'] {
+  --step: 22ms;
+}
+.js [data-anim='type'] .w {
+  opacity: 0;
+}
+.js [data-anim='type'].is-in .w {
+  opacity: 1;
+  transition: opacity 0.01s linear calc(var(--i) * var(--step));
+}
+
+/* comparsa */
+.js [data-anim='pop'] {
+  opacity: 0;
+  scale: 0.3;
+  transition:
+    opacity 0.3s,
+    scale 0.45s cubic-bezier(0.3, 1.6, 0.5, 1),
+    rotate 0.5s;
+}
+.js [data-anim='pop'].is-in {
+  opacity: 1;
+  scale: 1;
+}
+
+/* schizzo / scarabocchio (scribble.js) */
+.js [data-anim='scribble']:not(.is-ready) {
+  visibility: hidden;
+}
+.scribble-cover {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* colore che si dipinge col mouse (colorReveal.js) */
+.color-reveal {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  cursor: crosshair;
+  touch-action: pan-y;
+  user-select: none;
+}
+.color-reveal img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+}
+.color-reveal__canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.color-reveal__hint {
+  position: absolute;
+  left: 50%;
+  bottom: 1.2rem;
+  translate: -50% 0;
+  padding: 0.45rem 0.9rem;
+  border-radius: 2rem;
+  background: rgb(31 27 22 / 0.75);
+  color: #fff;
+  font-size: 0.75rem;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s;
+}
+.color-reveal.is-hinting .color-reveal__hint {
+  opacity: 1;
+}
+
+/* ───────── Hero ───────── */
+.hero {
+  display: flex;
+  flex-direction: column;
+  min-height: 100svh;
+}
+.hero__art {
+  position: absolute;
+  inset: 0 6% 0 48.6%;
+  z-index: 1;
+}
+.hero__brand {
+  position: absolute;
+  top: 7.4rem;
+  left: 45.8%;
+  z-index: 3;
+  font: 700 1.55rem/1 var(--font-head);
+  pointer-events: none;
+}
+.hero__copy {
+  position: relative;
+  z-index: 2;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 2.2rem;
+  width: 46%;
+  padding: 4rem 0 5rem var(--gutter);
+}
+
+/* ───────── Intro ───────── */
+.intro__grid {
+  display: grid;
+  grid-template-columns: 1fr 1.25fr;
+  gap: 3rem 4rem;
+  align-items: center;
+  padding: 11rem var(--gutter) 12rem;
+}
+.intro .kicker {
+  margin-bottom: 1.6rem;
+}
+.intro__text {
+  max-width: 24rem;
+  font-size: 1rem;
+}
+.intro__buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem 3rem;
+  margin-top: 5rem;
+}
+
+/* ───────── Racconti di carbone ───────── */
+.racconti {
+  padding-bottom: 6.5rem;
+}
+.racconti .title {
+  position: absolute;
+  top: 8rem;
+  left: var(--gutter);
+  z-index: 2;
+}
+.carousel {
+  position: relative;
+  margin-top: 1.2rem;
+  overflow: hidden;
+}
+.carousel__item {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  overflow: hidden;
+  will-change: transform, width, height;
+}
+.carousel__item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  user-select: none;
+}
+.carousel__item::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgb(31 27 22 / 0.84);
+  opacity: var(--w, 0);
+}
+.carousel__info {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: var(--big-w);
+  height: var(--big-h);
+  padding: 22% 8% 10%;
+  translate: -50% 0;
+  color: var(--paper);
+  text-align: center;
+  opacity: clamp(0, calc((var(--w, 0) - 0.6) * 2.5), 1);
+  pointer-events: none;
+}
+.carousel__item.is-focus .carousel__info {
+  pointer-events: auto;
+}
+.carousel__info h3 {
+  font: 400 clamp(1.05rem, 2vw, 1.7rem) / 1.15 var(--font-head);
+  text-transform: uppercase;
+}
+.carousel__info p {
+  margin-top: 1.6rem;
+  font: 400 clamp(0.8rem, 1.1vw, 0.95rem) / 1.3 var(--font-head);
+}
+.carousel__info .btn {
+  min-width: 0;
+  margin-top: auto;
+  padding-inline: 1.8rem;
+  font-size: clamp(0.6rem, 0.9vw, 0.8rem);
+}
+
+/* ───────── Libri di carbone ───────── */
+.libri__grid {
+  display: grid;
+  grid-template-columns: 1fr 1.3fr;
+  gap: 3rem 5rem;
+  align-items: center;
+  padding: 6rem var(--gutter) 7rem;
+}
+.libri .title {
+  color: var(--paper);
+}
+.libri .subtitle {
+  margin-top: 3.5rem;
+}
+.libri__text {
+  max-width: 21rem;
+  margin-top: 1.2rem;
+}
+.libri__picker {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.7rem 0.8rem;
+  max-width: 21rem;
+  margin: 3rem 0 0 5rem;
+}
+.libri__stage {
+  aspect-ratio: 4 / 3;
+  cursor: grab;
+  touch-action: pan-y;
+}
+.libri__stage.is-dragging {
+  cursor: grabbing;
+}
+.libri__stage canvas {
+  display: block;
+}
+
+/* ───────── Il mio racconto ───────── */
+.mio {
+  padding-bottom: 5rem;
+}
+.mio__grid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 3rem;
+  padding: 3.5rem var(--gutter) 0;
+}
+.mio__left {
+  position: relative;
+}
+.mio .title {
+  position: relative;
+  z-index: 1;
+  padding-right: 0;
+}
+.mio__art {
+  width: min(100%, 40rem);
+  aspect-ratio: 1;
+  margin: -9rem 0 0 16%;
+}
+.mio__art img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.mio__right p + p {
+  margin-top: 0;
+}
+.mio__right .subtitle {
+  margin-bottom: 1.2rem;
+}
+.mio__cta {
+  display: flex;
+  width: fit-content;
+  margin: 3rem auto 0;
+}
+.mio__follow {
+  position: relative;
+  margin: -2rem 0 0 calc(var(--gutter) - 1.5rem);
+  font-size: 1.1rem;
+}
+
+/* ───────── Contatti ───────── */
+.contatti__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem 12%;
+  align-items: start;
+  padding: 3.5rem calc(var(--gutter) + 1rem) 0;
+}
+.contatti .subtitle {
+  margin: 3rem 0 6rem;
+}
+.form {
+  display: grid;
+  gap: 0.7rem;
+  padding: 1.4rem 2.4rem 1.4rem;
+  border-radius: 2rem;
+  background: #fff;
+  color: #222;
+  overflow: hidden;
+}
+.form input:not([type='checkbox']),
+.form select,
+.form textarea {
+  width: 100%;
+  padding: 1rem;
+  border: 1px solid #222;
+  border-radius: 0.7rem;
+  background: #fff;
+  color: #222;
+  font: 400 0.95rem/1.3 var(--font-body);
+  letter-spacing: 0.18em;
+  resize: vertical;
+}
+.form ::placeholder,
+.form select:invalid {
+  color: #222;
+  text-transform: uppercase;
+  opacity: 1;
+}
+.form__foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-top: 0.4rem;
+}
+.form__consent {
+  font-size: 0.8rem;
+}
+.form__send {
+  padding: 1rem 2.6rem;
+  border: 0;
+  border-radius: 0.5rem;
+  background: var(--peach);
+  color: #222;
+  font: 400 0.95rem/1.3 var(--font-body);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.form__send:hover {
+  background: #f3cdb4;
+}
+.form__status {
+  min-height: 1.2em;
+  font-size: 0.85rem;
+}
+.contatti__foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 2rem;
+  padding: 3.5rem calc(var(--gutter) + 1rem) 4rem;
+}
+.contatti__thanks {
+  flex: none;
+  text-align: right;
+}
+.socials {
+  display: flex;
+  gap: 0.7rem;
+  margin-top: 1.6rem;
+}
+.socials a {
+  display: grid;
+  place-items: center;
+  width: 2.7rem;
+  height: 2.7rem;
+  border-radius: 50%;
+  background: var(--ink);
+  color: #fff;
+  font: 700 0.85rem/1 var(--font-head);
+  text-decoration: none;
+}
+
+/* ───────── Pagina racconto (Wyder) ───────── */
+.story {
+  background: var(--bg);
+  color: var(--fg);
+}
+.chapter {
+  --strip: 20%;
+  position: relative;
+  min-height: 100svh;
+  overflow: hidden;
+}
+.chapter > .nav {
+  position: absolute;
+  inset: 0 0 auto;
+}
+.chapter__bg,
+.chapter__bright {
+  position: absolute;
+  inset: 0;
+}
+.chapter__bg img,
+.chapter__bright img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+/* sfondo opaco */
+.chapter__bg img {
+  opacity: 0.26;
+}
+/* disegno 100%: lineare da sx a dx; la freccia lo apre del tutto */
+.chapter__bright {
+  z-index: 1;
+  transition: clip-path 0.9s ease;
+}
+.chapter.is-in:not(.was-opened) .chapter__bright {
+  transition-delay: 1.1s;
+}
+[data-side='left'] .chapter__bright {
+  clip-path: inset(0 100% 0 0);
+}
+[data-side='left'].is-in .chapter__bright {
+  clip-path: inset(0 calc(100% - var(--strip)) 0 0);
+}
+[data-side='right'] .chapter__bright {
+  clip-path: inset(0 var(--strip) 0 calc(100% - var(--strip)));
+}
+[data-side='right'].is-in .chapter__bright {
+  clip-path: inset(0 0 0 calc(100% - var(--strip)));
+}
+[data-side='top'] {
+  --strip: 26rem;
+}
+[data-side='top'] .chapter__bright {
+  clip-path: inset(0 100% calc(100% - var(--strip)) 0);
+}
+[data-side='top'].is-in .chapter__bright {
+  clip-path: inset(0 0 calc(100% - var(--strip)) 0);
+}
+.chapter.is-open.is-in .chapter__bright {
+  clip-path: inset(0);
+}
+
+.chapter__arrow {
+  position: absolute;
+  top: 24rem;
+  left: var(--strip);
+  z-index: 3;
+  display: grid;
+  place-items: center;
+  width: 2.7rem;
+  height: 2.7rem;
+  padding: 0 0 0.15rem;
+  border: 0;
+  border-radius: 50%;
+  background: rgb(211 206 196 / 0.75);
+  color: var(--ink);
+  font: 400 1.5rem/1 var(--font-head);
+  translate: -50% -50%;
+  cursor: pointer;
+}
+[data-side='right'] .chapter__arrow {
+  left: calc(100% - var(--strip));
+}
+[data-side='top'] .chapter__arrow {
+  top: var(--strip);
+  left: 50%;
+}
+.chapter.is-open .chapter__arrow {
+  rotate: 180deg;
+}
+
+.chapter__text {
+  position: relative;
+  z-index: 2;
+  width: min(40rem, 100% - 2 * (var(--strip) + 3rem));
+  margin-inline: auto;
+  padding: 9rem 0 7rem;
+  font: 400 0.95rem/1.22 var(--font-head);
+  text-align: justify;
+  transition: opacity 0.5s;
+}
+[data-side='top'] .chapter__text {
+  width: min(40rem, 100% - 2.5rem);
+  padding-top: calc(var(--strip) + 4rem);
+}
+.chapter.is-open .chapter__text {
+  opacity: 0;
+  pointer-events: none;
+}
+.chapter__text h2 {
+  margin: 0 0 4.5rem;
+  font: 400 1.55rem/1.2 var(--font-head);
+  text-align: center;
+  text-transform: uppercase;
+}
+.chapter__text p + p {
+  margin-top: 1.2em;
+}
+.story__title {
+  width: max-content;
+  max-width: calc(100vw - 2 * var(--gutter));
+  margin: 0 0 6rem 50%;
+  padding-bottom: 0.15em;
+  border-bottom: 2px solid currentColor;
+  font: 400 clamp(2rem, 5.2vw, 4.4rem) / 1.1 var(--font-head);
+  text-align: center;
+  translate: -50% 0;
+}
+.js .story__title[data-anim='rise'] {
+  translate: -50% 0;
+}
+.story__foot {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+  padding: 3rem var(--gutter) 4rem;
+  font: 400 0.95rem/1.3 var(--font-head);
+}
+
+/* ───────── Galleria ───────── */
+.gallery {
+  min-height: 100svh;
+  padding-bottom: 4rem;
+}
+.gallery > .nav {
+  position: absolute;
+  inset: 0 0 auto;
+}
+.gallery__img {
+  overflow: hidden;
+}
+.gallery__img > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.caption {
+  max-width: 24ch;
+  font: 400 clamp(1rem, 1.5vw, 1.3rem) / 1.2 var(--font-head);
+}
+.gallery__top {
+  display: grid;
+  grid-template-columns: 59% 1fr;
+  gap: 1.2%;
+}
+.gallery__img--mina {
+  aspect-ratio: 600 / 850;
+}
+.gallery__side {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding-top: 11rem;
+}
+.gallery__side .caption {
+  margin-inline: 14% 6%;
+}
+.gallery__side .caption--right {
+  align-self: flex-end;
+  text-align: right;
+}
+.gallery__img--mondo {
+  aspect-ratio: 520 / 470;
+}
+.gallery__row {
+  display: grid;
+  grid-template-columns: 22% 72%;
+  gap: 1%;
+  margin-top: 2.5rem;
+}
+.gallery__row .caption {
+  padding: 60% 0 0 30%;
+}
+.gallery__img--duca {
+  aspect-ratio: 957 / 1140;
+}
+.gallery__wide {
+  position: relative;
+  margin: 3rem 12% 0 16%;
+}
+.gallery__img--musica {
+  aspect-ratio: 16 / 10;
+}
+.gallery__img--musica > img {
+  object-fit: contain;
+}
+.gallery__wide .caption {
+  position: absolute;
+  bottom: 8%;
+  left: -8%;
+  max-width: 14ch;
+}
+.gallery__back {
+  margin: 4rem var(--gutter) 0;
+  font-family: var(--font-head);
+}
+
+/* ───────── Mobile ───────── */
+@media (max-width: 760px) {
+  .nav {
+    grid-template-columns: 1fr 1fr;
+    gap: 0.9rem 1rem;
+    padding-top: 1.5rem;
+    font-size: 0.85rem;
+  }
+  .btn {
+    min-width: min(16rem, 100%);
+  }
+
+  .hero__brand {
+    position: static;
+    margin: 2.5rem var(--gutter) 0;
+  }
+  .hero__copy {
+    width: auto;
+    padding: 2rem var(--gutter) 3rem;
+  }
+  .hero__art {
+    position: relative;
+    inset: auto;
+    height: 80svh;
+  }
+
+  .intro__grid,
+  .libri__grid,
+  .mio__grid,
+  .contatti__grid {
+    grid-template-columns: 1fr;
+  }
+  .intro__grid {
+    padding-block: 5rem 6rem;
+  }
+  .intro__buttons {
+    gap: 1rem;
+    margin-top: 3rem;
+  }
+
+  .racconti .title {
+    position: static;
+    margin: 3rem var(--gutter) 0;
+  }
+  .carousel {
+    margin-top: 2.5rem;
+  }
+
+  .libri__grid {
+    padding-block: 3.5rem 4rem;
+  }
+  .libri__picker {
+    margin-left: 0;
+  }
+
+  .mio__art {
+    margin: -2rem 0 0;
+  }
+  .mio__follow {
+    margin: 3rem var(--gutter) 0;
+  }
+
+  .contatti__grid,
+  .contatti__foot {
+    padding-inline: var(--gutter);
+  }
+  .contatti .subtitle {
+    margin: 2rem 0;
+  }
+  .form {
+    padding-inline: 1.2rem;
+  }
+  .contatti__foot {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .socials {
+    justify-content: flex-end;
+  }
+
+  .chapter {
+    --strip: 2.5rem;
+  }
+  [data-side='top'] {
+    --strip: 16rem;
+  }
+  .chapter__text {
+    width: auto;
+    margin-inline: calc(var(--strip) + 1.9rem) 1.1rem;
+    padding-top: 8rem;
+    text-align: left;
+  }
+  [data-side='right'] .chapter__text {
+    margin-inline: 1.1rem calc(var(--strip) + 1.9rem);
+  }
+  [data-side='top'] .chapter__text {
+    width: auto;
+    margin-inline: 1.25rem;
+  }
+  .chapter__arrow {
+    top: 12rem;
+  }
+  .story__title {
+    width: auto;
+    max-width: none;
+    margin: 0 0 3rem;
+    translate: none;
+  }
+  .js .story__title[data-anim='rise'] {
+    translate: none;
+  }
+  .chapter__text h2 {
+    margin-bottom: 2.5rem;
+  }
+
+  .gallery__top,
+  .gallery__row {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  .gallery__side {
+    padding-top: 0;
+  }
+  .gallery__side .caption,
+  .gallery__row .caption {
+    margin-inline: var(--gutter);
+    padding: 0;
+  }
+  .gallery__wide {
+    margin-inline: var(--gutter);
+  }
+  .gallery__wide .caption {
+    position: static;
+    margin-top: 1rem;
+  }
+}
+
+/* ───────── Movimento ridotto ───────── */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .js [data-anim],
+  .js [data-anim] .w {
+    opacity: 1 !important;
+    transform: none !important;
+    scale: 1 !important;
+    transition: none !important;
+  }
+  .js [data-anim='wipe'] > span {
+    clip-path: none !important;
+  }
+}

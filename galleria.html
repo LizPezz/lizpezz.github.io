@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Il mio racconto — Galleria | Liz Pezz</title>
+    <meta name="description" content="La galleria de Il mio racconto: bozze, schizzi e illustrazioni del mondo di Enea." />
+    <script>document.documentElement.classList.add('js')</script>
+  </head>
+  <body>
+    <!-- disegni di sfondo: scarabocchio · scritte: battitura a macchina (velocità media) -->
+    <main class="section theme-peach gallery">
+      <nav data-nav></nav>
+      <h1 class="sr-only">Il mio racconto — Galleria</h1>
+
+      <div class="gallery__top">
+        <figure class="gallery__img gallery__img--mina" data-anim="scribble">
+          <div class="color-reveal" data-color="galleria-mina-colore">
+            <img data-img="galleria-mina-bozza" alt="Mina, ragazza con le corna, tra bozza e colore" />
+          </div>
+        </figure>
+        <div class="gallery__side">
+          <p class="caption" data-anim="type">Mina era una giovane donna con un talento medico straordinario… forse sovrumano</p>
+          <figure class="gallery__img gallery__img--mondo" data-anim="scribble">
+            <img data-img="galleria-mondo" alt="Schizzo a penna di una ragazza con le corna" />
+          </figure>
+          <p class="caption caption--right" data-anim="type">Il mondo è meraviglioso</p>
+        </div>
+      </div>
+
+      <div class="gallery__row">
+        <p class="caption" data-anim="type">Duca ci credeva….</p>
+        <figure class="gallery__img gallery__img--duca" data-anim="scribble">
+          <div class="color-reveal" data-color="galleria-duca-colore">
+            <img data-img="galleria-duca-bozza" alt="Ritratto a matita di Duca con i capelli al vento" />
+          </div>
+        </figure>
+      </div>
+
+      <div class="gallery__wide">
+        <figure class="gallery__img gallery__img--musica" data-anim="scribble">
+          <img data-img="galleria-musica" alt="Schizzo di tre musicisti in movimento" />
+        </figure>
+        <p class="caption" data-anim="type">Musica per il figlio di Eva</p>
+      </div>
+
+      <p class="gallery__back"><a href="/#mio-racconto">← Torna a Il mio racconto</a></p>
+    </main>
+    <script type="module" src="/src/pages/gallery.js"></script>
+  </body>
+</html>
