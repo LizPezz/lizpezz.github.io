@@ -1,4 +1,5 @@
 import { initCommon } from '../js/common.js'
+import { initSnap } from '../js/snap.js'
 
 // Ogni capitolo ha l'illustrazione di sfondo opaca e una parte "al 100%".
 // Il layout si adatta al formato dell'immagine, per tagliarla il meno possibile:
@@ -54,4 +55,5 @@ document.querySelectorAll('.chapter').forEach((chapter) => {
   })
 })
 
+initSnap('.chapter')
 initCommon()

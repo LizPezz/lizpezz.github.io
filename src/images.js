@@ -11,7 +11,7 @@ export const images = {
   'hero-colore': { src: null, label: 'Hero - colore', w: 1100, h: 1500, tone: 'color' },
 
   // Home — Racconti di carbone (carosello)
-  'racconto-wyder': { src: "images/Wyder/Character.png", label: 'Wyder - Il guardiano del faro', w: 1000, h: 1250, tone: 'dark' },
+  'racconto-wyder': { src: "images/Wyder/Character.webp", label: 'Wyder - Il guardiano del faro', w: 1000, h: 1250, tone: 'dark' },
   'racconto-2': { src: null, label: 'Racconto 2', w: 1000, h: 1250, tone: 'color' },
   'racconto-3': { src: null, label: 'Racconto 3', w: 1000, h: 1250, tone: 'dark' },
   'racconto-4': { src: null, label: 'Racconto 4', w: 1000, h: 1250, tone: 'sketch' },
@@ -26,9 +26,9 @@ export const images = {
   enea: { src: null, label: 'Disegno Enea', w: 1200, h: 1200, tone: 'line' },
 
   // Racconto "Wyder, il guardiano del faro"
-  'wyder-1': { src: "images/Wyder/Storyboard_01.png", label: 'Wyder - cap. 1', w: 1920, h: 1300, tone: 'dark' },
-  'wyder-2': { src: "images/Wyder/Environnement-INDOOR.png", label: 'Wyder - cap. 2', w: 1920, h: 1300, tone: 'dark' },
-  'wyder-3': { src: "images/Wyder/Character.png", label: '', w: 1920, h: 2000, tone: 'dark' },
+  'wyder-1': { src: "images/Wyder/Storyboard_01.webp", label: 'Wyder - cap. 1', w: 1920, h: 1300, tone: 'dark' },
+  'wyder-2': { src: "images/Wyder/Environnement-INDOOR.webp", label: 'Wyder - cap. 2', w: 1920, h: 1300, tone: 'dark' },
+  'wyder-3': { src: "images/Wyder/Character.webp", label: '', w: 1920, h: 2000, tone: 'dark' },
 
   // Galleria de "Il mio racconto"
   'galleria-mina-bozza': { src: null, label: 'Mina - bozza', w: 1000, h: 1400, tone: 'sketch' },

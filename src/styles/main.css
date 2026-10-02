@@ -373,7 +373,7 @@ main > .section {
 .racconti__body {
   position: relative;
   margin-block: auto;
-  padding-block: 1.2rem 4rem;
+  padding-block: 1.2rem 2rem;
 }
 .racconti .title {
   position: absolute;
@@ -384,6 +384,34 @@ main > .section {
 .carousel {
   position: relative;
   overflow: hidden;
+  touch-action: pan-y;
+}
+.carousel__controls {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.7rem;
+  margin-top: 1.4rem;
+  padding-inline: var(--gutter);
+}
+.carousel__controls button {
+  display: grid;
+  place-items: center;
+  width: 2.7rem;
+  height: 2.7rem;
+  padding: 0 0 0.15rem;
+  border: 1px solid var(--paper);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--paper);
+  font: 400 1.4rem/1 var(--font-head);
+  cursor: pointer;
+  transition:
+    background-color 0.25s,
+    color 0.25s;
+}
+.carousel__controls button:hover {
+  background: var(--paper);
+  color: var(--dark);
 }
 .carousel__item {
   position: absolute;
@@ -693,6 +721,17 @@ main > .section {
 .story {
   background: var(--bg);
   color: var(--fg);
+}
+/* scroll a scatti da un capitolo all'altro (dentro un capitolo lungo si scorre normalmente) */
+html:has(.story) {
+  scroll-snap-type: y mandatory;
+}
+.chapter {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+.story__foot {
+  scroll-snap-align: end;
 }
 .chapter {
   --ratio: 1.5; /* proporzioni dell'illustrazione, impostate da story.js */
@@ -1007,10 +1046,12 @@ main > .section {
   }
 
   /* le sezioni sono più alte dello schermo: aggancio solo in prossimità */
-  html:has(main > .section) {
+  html:has(main > .section),
+  html:has(.story) {
     scroll-snap-type: y proximity;
   }
-  main > .section {
+  main > .section,
+  .chapter {
     scroll-snap-stop: normal;
   }
 
