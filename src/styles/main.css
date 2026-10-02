@@ -712,7 +712,7 @@ main > .section {
 .contatti__grid,
 .contatti__foot {
   width: 100%;
-  max-width: calc(58rem + 2 * var(--gutter));
+  max-width: calc(68rem + 2 * var(--gutter));
   margin-inline: auto;
   padding-inline: var(--gutter);
 }
