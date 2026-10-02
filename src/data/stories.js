@@ -6,7 +6,7 @@ export const stories = [
   {
     image: 'racconto-wyder',
     title: 'Wyder,<br>il guardiano<br>del faro',
-    subtitle: 'Storia a fumetti / storyboard, etc.',
+    subtitle: 'Concept art e storyboard',
     href: base + 'racconti/wyder.html',
   },
   { image: 'racconto-2', title: 'Titolo<br>del racconto', subtitle: 'Descrizione del racconto', href: null },
