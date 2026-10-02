@@ -361,8 +361,12 @@ main > .section {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 2rem 3rem;
-  margin-top: 5rem;
+  gap: 1.2rem;
+  margin-top: 4rem;
+}
+.intro__buttons .btn {
+  min-width: 14rem;
+  padding-inline: 1.2rem;
 }
 
 /* ───────── Racconti di carbone ───────── */
@@ -440,7 +444,7 @@ main > .section {
 .libri__grid {
   display: grid;
   grid-template-columns: 1fr 1.3fr;
-  gap: 3rem 5rem;
+  gap: 3rem;
   align-items: center;
   margin-block: auto;
   padding: 3rem var(--gutter) 4rem;
@@ -489,15 +493,19 @@ main > .section {
 .mio__left {
   position: relative;
 }
+.mio__right {
+  position: relative;
+  z-index: 1;
+}
 .mio .title {
   position: relative;
   z-index: 1;
   padding-right: 0;
 }
 .mio__art {
-  width: min(100%, 40rem);
+  width: 94%;
   aspect-ratio: 1;
-  margin: -9rem 0 0 16%;
+  margin: -7rem 0 0 6%;
 }
 .mio__art img {
   width: 100%;
@@ -517,7 +525,7 @@ main > .section {
 }
 .mio__follow {
   position: relative;
-  margin: -2rem 0 0 calc(var(--gutter) - 1.5rem);
+  margin-top: -2rem;
   font-size: 1.1rem;
 }
 
@@ -525,13 +533,13 @@ main > .section {
 .contatti__grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 3rem 12%;
+  gap: 3rem 8%;
   align-items: start;
   margin-top: auto;
   padding: 3.5rem calc(var(--gutter) + 1rem) 0;
 }
 .contatti .subtitle {
-  margin: 3rem 0 6rem;
+  margin: 2.5rem 0 3rem;
 }
 /* Modulo: un foglio di carta con campi a riga, come un modulo scritto a mano */
 .form {
@@ -638,7 +646,7 @@ main > .section {
   justify-content: space-between;
   align-items: flex-end;
   gap: 2rem;
-  padding: 3.5rem calc(var(--gutter) + 1rem) 4rem;
+  padding: 2.5rem var(--gutter) 3rem;
 }
 .contatti__thanks {
   flex: none;
@@ -668,16 +676,30 @@ main > .section {
   fill: currentColor;
 }
 
+/* Home: il contenuto delle sezioni resta raccolto al centro anche su schermi larghi */
+.intro__grid,
+.libri__grid,
+.mio__grid,
+.mio__follow,
+.contatti__grid,
+.contatti__foot {
+  width: 100%;
+  max-width: calc(58rem + 2 * var(--gutter));
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
 /* ───────── Pagina racconto (Wyder) ───────── */
 .story {
   background: var(--bg);
   color: var(--fg);
 }
 .chapter {
+  --ratio: 1.5; /* proporzioni dell'illustrazione, impostate da story.js */
   --strip: 20%;
   position: relative;
   min-height: 100svh;
-  overflow: hidden;
+  overflow: clip;
 }
 .chapter > .nav {
   position: absolute;
@@ -688,17 +710,21 @@ main > .section {
   position: absolute;
   inset: 0;
 }
+/* l'illustrazione resta agganciata allo schermo mentre il testo scorre,
+   così è inquadrata sullo schermo e non sull'intero capitolo (molto più alto) */
 .chapter__bg img,
 .chapter__bright img {
+  position: sticky;
+  top: 0;
   width: 100%;
-  height: 100%;
+  height: 100svh;
   object-fit: cover;
 }
 /* sfondo opaco */
 .chapter__bg img {
   opacity: 0.26;
 }
-/* disegno 100%: lineare da sx a dx; la freccia lo apre del tutto */
+/* disegno 100%: lineare da sx a dx */
 .chapter__bright {
   z-index: 1;
   transition: clip-path 0.9s ease;
@@ -706,29 +732,68 @@ main > .section {
 .chapter.is-in:not(.was-opened) .chapter__bright {
   transition-delay: 1.1s;
 }
-[data-side='left'] .chapter__bright {
+
+/* Il layout (data-layout) è scelto da story.js in base al formato dell'immagine.
+   left / right: striscia laterale, la freccia la apre a tutto schermo */
+[data-layout='left'] .chapter__bright {
   clip-path: inset(0 100% 0 0);
 }
-[data-side='left'].is-in .chapter__bright {
+[data-layout='left'].is-in .chapter__bright {
   clip-path: inset(0 calc(100% - var(--strip)) 0 0);
 }
-[data-side='right'] .chapter__bright {
+[data-layout='right'] .chapter__bright {
   clip-path: inset(0 var(--strip) 0 calc(100% - var(--strip)));
 }
-[data-side='right'].is-in .chapter__bright {
+[data-layout='right'].is-in .chapter__bright {
   clip-path: inset(0 0 0 calc(100% - var(--strip)));
-}
-[data-side='top'] {
-  --strip: 26rem;
-}
-[data-side='top'] .chapter__bright {
-  clip-path: inset(0 100% calc(100% - var(--strip)) 0);
-}
-[data-side='top'].is-in .chapter__bright {
-  clip-path: inset(0 0 calc(100% - var(--strip)) 0);
 }
 .chapter.is-open.is-in .chapter__bright {
   clip-path: inset(0);
+}
+/* aperta: se lo schermo la taglierebbe troppo, l'immagine viene mostrata intera */
+.chapter.is-open.fit-contain .chapter__bright {
+  background: var(--bg);
+}
+.chapter.is-open.fit-contain .chapter__bright img {
+  object-fit: contain;
+}
+
+/* top: fascia in alto con le proporzioni dell'immagine, testo sotto */
+[data-layout='top'] {
+  --strip: min(calc(100vw / var(--ratio)), 100svh);
+}
+[data-layout='top'] .chapter__bright {
+  bottom: auto;
+  height: var(--strip);
+  clip-path: inset(0 100% 0 0);
+}
+[data-layout='top'] .chapter__bright img {
+  position: static;
+  height: 100%;
+}
+[data-layout='top'].is-in .chapter__bright {
+  clip-path: inset(0);
+}
+
+/* immagine verticale su schermo largo: colonna laterale con l'immagine intera */
+.chapter.is-column {
+  --strip: min(calc(100svh * var(--ratio)), 46%);
+}
+.is-column .chapter__bright {
+  right: auto;
+  width: var(--strip);
+  background: var(--bg);
+  clip-path: inset(0 100% 0 0);
+}
+.is-column[data-layout='right'] .chapter__bright {
+  right: 0;
+  left: auto;
+}
+.is-column.is-in .chapter__bright {
+  clip-path: inset(0);
+}
+.is-column .chapter__bright img {
+  object-fit: contain;
 }
 
 .chapter__arrow {
@@ -749,12 +814,15 @@ main > .section {
   translate: -50% -50%;
   cursor: pointer;
 }
-[data-side='right'] .chapter__arrow {
+[data-layout='right'] .chapter__arrow {
   left: calc(100% - var(--strip));
 }
-[data-side='top'] .chapter__arrow {
+[data-layout='top'] .chapter__arrow {
   top: var(--strip);
   left: 50%;
+}
+.is-column .chapter__arrow {
+  display: none; /* l'immagine è già intera */
 }
 .chapter.is-open .chapter__arrow {
   rotate: 180deg;
@@ -770,9 +838,18 @@ main > .section {
   text-align: justify;
   transition: opacity 0.5s;
 }
-[data-side='top'] .chapter__text {
+[data-layout='top'] .chapter__text {
   width: min(40rem, 100% - 2.5rem);
   padding-top: calc(var(--strip) + 4rem);
+}
+/* accanto alla colonna il testo è centrato nello spazio che resta */
+.is-column .chapter__text {
+  --w: min(40rem, 100% - var(--strip) - 6rem);
+  width: var(--w);
+  margin-inline: calc(var(--strip) + (100% - var(--strip) - var(--w)) / 2) auto;
+}
+.is-column[data-layout='right'] .chapter__text {
+  margin-inline: auto calc(var(--strip) + (100% - var(--strip) - var(--w)) / 2);
 }
 .chapter.is-open .chapter__text {
   opacity: 0;
@@ -780,6 +857,7 @@ main > .section {
 }
 .chapter__text h2 {
   margin: 0 0 4.5rem;
+  scroll-margin-top: 4rem;
   font: 400 1.55rem/1.2 var(--font-head);
   text-align: center;
   text-transform: uppercase;
@@ -955,7 +1033,7 @@ main > .section {
     margin: -2rem 0 0;
   }
   .mio__follow {
-    margin: 3rem var(--gutter) 0;
+    margin-top: 3rem;
   }
 
   .contatti__grid,
@@ -980,11 +1058,8 @@ main > .section {
     justify-content: flex-end;
   }
 
-  .chapter {
+  .chapter:not([data-layout='top']) {
     --strip: 2.5rem;
-  }
-  [data-side='top'] {
-    --strip: 16rem;
   }
   .chapter__text {
     width: auto;
@@ -992,14 +1067,15 @@ main > .section {
     padding-top: 8rem;
     text-align: left;
   }
-  [data-side='right'] .chapter__text {
+  [data-layout='right'] .chapter__text {
     margin-inline: 1.1rem calc(var(--strip) + 1.9rem);
   }
-  [data-side='top'] .chapter__text {
+  [data-layout='top'] .chapter__text {
     width: auto;
     margin-inline: 1.25rem;
+    padding-top: calc(var(--strip) + 3rem);
   }
-  .chapter__arrow {
+  .chapter:not([data-layout='top']) .chapter__arrow {
     top: 12rem;
   }
   .story__title {
