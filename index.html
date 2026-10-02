@@ -55,8 +55,10 @@
       <!-- RACCONTI DI CARBONE -->
       <section class="section theme-dark racconti" id="racconti">
         <nav data-nav></nav>
-        <h2 class="title" data-anim="rise">Racconti<br />di carbone</h2>
-        <div class="carousel" data-anim="fade" data-speed="fast" aria-label="Racconti di carbone"></div>
+        <div class="racconti__body">
+          <h2 class="title" data-anim="rise">Racconti<br />di carbone</h2>
+          <div class="carousel" data-anim="fade" data-speed="fast" aria-label="Racconti di carbone"></div>
+        </div>
       </section>
 
       <!-- LIBRI DI CARBONE -->
@@ -128,15 +130,27 @@
           </div>
           <!-- riquadro da completare: scarabocchio -->
           <form class="form" id="contact-form" data-anim="scribble">
-            <input name="nome" type="text" placeholder="Il tuo nome*" aria-label="Il tuo nome" autocomplete="name" required />
-            <input name="email" type="email" placeholder="La tua mail*" aria-label="La tua mail" autocomplete="email" required />
-            <select name="oggetto" aria-label="Oggetto" required>
-              <option value="" disabled selected>Oggetto*</option>
-            </select>
-            <textarea name="richiesta" rows="3" placeholder="La tua richiesta*" aria-label="La tua richiesta" required></textarea>
+            <label class="field">
+              <span>Il tuo nome*</span>
+              <input name="nome" type="text" autocomplete="name" required />
+            </label>
+            <label class="field">
+              <span>La tua mail*</span>
+              <input name="email" type="email" autocomplete="email" required />
+            </label>
+            <label class="field">
+              <span>Oggetto*</span>
+              <select name="oggetto" required>
+                <option value="" disabled selected hidden></option>
+              </select>
+            </label>
+            <label class="field">
+              <span>La tua richiesta*</span>
+              <textarea name="richiesta" rows="3" required></textarea>
+            </label>
             <div class="form__foot">
               <label class="form__consent"><input type="checkbox" name="informativa" required /> informativa xxxx</label>
-              <button class="form__send" type="submit">Invia</button>
+              <button class="btn form__send" type="submit">Invia</button>
             </div>
             <p class="form__status" role="status"></p>
           </form>

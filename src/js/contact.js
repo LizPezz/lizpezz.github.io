@@ -1,4 +1,18 @@
+import { faArtstation, faInstagram, faKickstarterK, faLinkedinIn, faTiktok } from '@fortawesome/free-brands-svg-icons'
 import { site } from '../config.js'
+
+const icons = {
+  artstation: faArtstation,
+  linkedin: faLinkedinIn,
+  kickstarter: faKickstarterK,
+  tiktok: faTiktok,
+  instagram: faInstagram,
+}
+
+function iconSvg(name) {
+  const [w, h, , , path] = icons[name].icon
+  return `<svg viewBox="0 0 ${w} ${h}" aria-hidden="true"><path d="${path}"/></svg>`
+}
 
 export function initContact() {
   const form = document.getElementById('contact-form')
@@ -10,7 +24,7 @@ export function initContact() {
   )
 
   document.querySelector('.socials').innerHTML = site.socials
-    .map((s) => `<a href="${s.href}" aria-label="${s.name}" title="${s.name}">${s.abbr}</a>`)
+    .map((s) => `<a href="${s.href}" aria-label="${s.name}" title="${s.name}" style="--c:${s.color}">${iconSvg(s.icon)}</a>`)
     .join('')
 
   form.addEventListener('submit', async (e) => {

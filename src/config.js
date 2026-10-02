@@ -14,12 +14,17 @@ export const site = {
     'Altro',
   ],
 
-  // Canali social: `abbr` è il segnaposto finché non arrivano le icone.
+  // Canali social: `icon` è il nome dell'icona (vedi src/js/contact.js), `color` lo sfondo del cerchio.
   socials: [
-    { name: 'ArtStation', abbr: 'AS', href: '#' },
-    { name: 'LinkedIn', abbr: 'in', href: '#' },
-    { name: 'Kickstarter', abbr: 'K', href: '#' },
-    { name: 'TikTok', abbr: 'TT', href: '#' },
-    { name: 'Instagram', abbr: 'IG', href: '#' },
+    { name: 'ArtStation', icon: 'artstation', color: '#111', href: '#' },
+    { name: 'LinkedIn', icon: 'linkedin', color: '#0a66c2', href: '#' },
+    { name: 'Kickstarter', icon: 'kickstarter', color: '#05ce78', href: '#' },
+    { name: 'TikTok', icon: 'tiktok', color: '#111', href: '#' },
+    {
+      name: 'Instagram',
+      icon: 'instagram',
+      color: 'linear-gradient(45deg, #f9ce34, #ee2a7b 50%, #6228d7)',
+      href: '#',
+    },
   ],
 }

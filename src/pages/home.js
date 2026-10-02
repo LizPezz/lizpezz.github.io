@@ -1,11 +1,13 @@
 import { initCommon } from '../js/common.js'
 import { initCarousel } from '../js/carousel.js'
 import { initContact } from '../js/contact.js'
+import { initSnap } from '../js/snap.js'
 import { imageUrl } from '../images.js'
 import { stories, books } from '../data/stories.js'
 
 initCarousel(document.querySelector('.carousel'), stories)
 initContact()
+initSnap()
 
 // Libri di carbone: pulsanti + modello 3D (three.js viene scaricato solo quando serve)
 const stage = document.querySelector('.libri__stage')

@@ -1,19 +1,21 @@
 import { imageUrl } from '../images.js'
-import { reducedMotion } from './animations.js'
 
-// Carosello "Racconti di carbone": scorrimento continuo da sinistra a destra.
-// L'immagine che arriva nel terzo quadrante (a destra del centro) si ingrandisce
-// e lascia comparire titolo, descrizione e pulsante del racconto.
+// Carosello "Racconti di carbone": le immagini scorrono da sinistra a destra.
+// Quella che arriva nel terzo quadrante (a destra del centro) si ingrandisce, lascia
+// comparire titolo, descrizione e pulsante, e resta ferma HOLD secondi prima di ripartire.
 
-const SPEED = reducedMotion ? 15 : 60 // px al secondo ("velocità media")
+const HOLD = 1.5 // secondi di sosta su ogni racconto
+const MOVE = 1.6 // secondi per passare al racconto successivo
 const clamp = (v, a, b) => Math.min(b, Math.max(a, v))
 const mod = (v, m) => ((v % m) + m) % m
+const ease = (t) => (t < 0.5 ? 2 * t * t : 1 - (-2 * t + 2) ** 2 / 2)
 
 export function initCarousel(root, stories) {
   let items = []
   let m = null // misure correnti
-  let offset = 0
-  let speed = SPEED
+  let step = 0 // quanti racconti sono già passati
+  let phase = 'hold'
+  let t = 0
   let paused = false
   let last = null
 
@@ -26,8 +28,9 @@ export function initCarousel(root, stories) {
     const extra = bigW - base
     const needed = Math.ceil((vw + extra) / slot) + 3
     const count = Math.ceil(needed / stories.length) * stories.length
-    const focusX = vw >= 760 ? vw * 0.635 : vw * 0.5
-    m = { base, bigH, slot, extra, cycle: count * slot, focus: focusX - extra / 2 }
+    const focus = (vw >= 760 ? vw * 0.635 : vw * 0.5) - extra / 2
+    // `align` è lo scostamento con cui un'immagine cade esattamente nel punto di fuoco
+    m = { base, bigH, slot, extra, count, cycle: count * slot, focus, align: mod(focus - base / 2, slot) }
     root.style.height = `${bigH}px`
     root.style.setProperty('--big-w', `${bigW}px`)
     root.style.setProperty('--big-h', `${bigH}px`)
@@ -51,8 +54,19 @@ export function initCarousel(root, stories) {
   const frame = (now) => {
     const dt = Math.min(0.05, (now - (last ?? now)) / 1000)
     last = now
-    speed += ((paused ? 0 : SPEED) - speed) * Math.min(1, dt * 6)
-    offset = mod(offset + speed * dt, m.cycle)
+
+    // sosta → spostamento → sosta… Con il mouse sopra la sosta non scade.
+    if (phase === 'move' || !paused) t += dt
+    if (phase === 'hold' && t >= HOLD) {
+      phase = 'move'
+      t = 0
+    } else if (phase === 'move' && t >= MOVE) {
+      phase = 'hold'
+      t = 0
+      step = (step + 1) % m.count
+    }
+    const pos = step + (phase === 'move' ? ease(t / MOVE) : 0)
+    const offset = m.align + pos * m.slot
 
     const laid = items
       .map((el, i) => {

@@ -1,38 +1,45 @@
 # Liz Pezz — Storie di Carbone
 
-Sito portfolio. Vite + JavaScript vanilla, three.js per il modello 3D.
+> A volte per raccontare una storia basta poco: un carboncino, un foglio e il ritmo di poche linee tracciate con cura.
 
-## Comandi
+**Storie di Carbone** è il laboratorio di Liz Pezz: uno spazio dove carta, materia e immaginazione si incontrano per dare vita a nuovi mondi. I tratti diventano lo spartito di una narrazione, e ogni disegno è l'inizio di una storia.
 
-```bash
-npm install      # solo la prima volta
-npm run dev      # sviluppo su http://localhost:5173
-npm run build    # genera la cartella dist/
-```
+🌐 **[lizpezz.github.io](https://lizpezz.github.io)**
 
-## Pagine
+## Racconto storie
 
-- `index.html` — home (hero, intro, Racconti / Libri di carbone, Il mio racconto, Contatti)
-- `racconti/wyder.html` — racconto "Wyder, il guardiano del faro"
-- `galleria.html` — galleria de "Il mio racconto"
+Attraverso il visual storytelling una narrazione prende vita: evoca sfumature, atmosfere e sensazioni dove la parola scritta non basta. Per chi cerca un impatto visivo capace di distinguersi.
 
-## Sostituire un'immagine segnaposto
+### Racconti di carbone
 
-1. Copia il file in `public/images/` (es. `public/images/hero-bozza.jpg`).
-2. In `src/images.js` scrivi il percorso nella riga corrispondente:
-   `'hero-bozza': { src: 'images/hero-bozza.jpg', ... }`
+Storie a fumetti, storyboard e racconti illustrati.
 
-Le coppie bozza/colore (`hero-*`, `galleria-mina-*`, `galleria-duca-*`) devono avere la stessa inquadratura e le stesse proporzioni.
+**Wyder, il guardiano del faro** — Su una remota isola dell'Atlantico vive un uomo che tutti chiamano *Il guardiano*. Chiunque osi avvicinarsi viene respinto da ombre inquietanti, suoni raccapriccianti e una tempesta improvvisa. Finché un naufrago non arriva ai piedi del faro e scopre cosa si nasconde davvero nello scantinato. *Racconto scritto da Simone Baptiste, illustrato da Liz Pezz.*
 
-## Dove si cambia cosa
+### Libri di carbone
 
-- `src/config.js` — modulo contatti (endpoint o email), voci del menu "Oggetto", link social
-- `src/data/stories.js` — racconti del carosello e libri
-- `src/styles/main.css` — stili; le animazioni sono nel blocco "Animazioni"
-- `src/js/` — animazioni: `animations.js` (salita, dissolvenza, lineare, battitura, comparsa), `scribble.js` (scarabocchio), `colorReveal.js` (colore col mouse), `carousel.js`
-- `src/three/book.js` — scena three.js
+L'inconfondibile profumo della carta: qualcosa di unico, di una pagina appena stampata e del tempo dedicato a sfogliarla. Per un regalo indimenticabile o una coccola personale.
 
-## Deploy
+- *Assaporando il viaggio*
+- *Il mio elefante è leggero*
+- *Storia di un formicaio*
 
-Ogni push su `main` pubblica il sito tramite `.github/workflows/deploy.yml`.
-Su GitHub: Settings → Pages → Source: **GitHub Actions** (da fare una volta sola).
+### Il mio racconto
+
+Su un'isola remota di un pianeta lontano vive Enea, un ragazzo nato con ali brune, maestose e forti. Crescendo, però, quelle ali hanno smesso di svilupparsi. Oggi Enea attraversa il suo mondo alla ricerca di una cura, senza sapere che l'origine del suo male affonda le radici in un segreto antico: un mosaico di destini umani e creature mistiche, sogni infranti, grandi amori e tradimenti inconfessabili.
+
+Nella galleria del sito si incontrano i personaggi di questo mondo, tra bozze a matita e tavole a colori — da colorare passandoci sopra il mouse.
+
+## Lavoriamo insieme
+
+Sei un editore o un autore che desidera dare vita a una propria storia? Racconta la tua idea — il personaggio, la storia o l'universo narrativo che vorresti creare — dalla sezione **Contatti** del sito. Liz risponde entro una settimana.
+
+## Segui e sostieni
+
+I lavori e i dietro le quinte sono sui canali social di Liz (ArtStation, LinkedIn, TikTok, Instagram). Chi vuole può aiutare *Il mio racconto* a prendere vita sostenendo il progetto con una piccola donazione.
+
+Grazie di cuore!
+
+---
+
+© Liz Pezz. Illustrazioni e testi appartengono ai rispettivi autori e non possono essere riutilizzati senza permesso.
