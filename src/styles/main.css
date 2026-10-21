@@ -1,5 +1,9 @@
 /* ───────── Base ───────── */
 :root {
+  /* margine laterale delle sezioni Racconto storie, Libri e Contatti su schermo largo:
+     a metà strada fra la hero (--gutter) e un blocco stretto al centro; cresce con lo schermo
+     (~140px a 1440, ~260px a 1920) */
+  --side: max(var(--gutter), 25vw - 13.75rem);
   --beige: #ccc7bb;
   --brown: #403a34;
   --dark: #1f1b16;
@@ -757,13 +761,18 @@ main > .section {
   padding-inline: var(--gutter);
 }
 
-/* Racconto storie: colonne come nel progetto grafico (testo largo il 42.5% dello schermo),
-   margini uguali ai due lati e allineati al menu, così il blocco e i pulsanti sono centrati */
+/* Racconto storie, Libri e Contatti: margini uguali ai due lati (--side) */
 @media (min-width: 761px) {
+  .intro__grid,
+  .libri__grid,
+  .contatti__grid,
+  .contatti__foot {
+    max-width: none;
+    padding-inline: var(--side);
+  }
+  /* colonne come nel progetto grafico; oltre i 39rem le righe del testo sarebbero troppo lunghe */
   .intro__grid {
-    grid-template-columns: 1fr min(42.5vw, 39rem); /* oltre i 39rem le righe sarebbero troppo lunghe */
-    max-width: 90rem; /* su schermi più larghi del progetto (1440px) il blocco resta compatto al centro */
-    padding-inline: var(--gutter);
+    grid-template-columns: 1fr min(40vw, 39rem);
   }
   .intro .display {
     white-space: nowrap; /* "Racconto storie" su una riga */
