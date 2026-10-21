@@ -4,7 +4,8 @@ import * as THREE from 'three'
 // trascinando. Quando arriveranno i modelli veri (es. .glb) basta sostituire `book`
 // con la scena caricata da GLTFLoader, il resto (camera, luci, drag, resize) resta uguale.
 
-export function createBookViewer(container, coverUrls) {
+// books: [{ cover, back }] con gli URL di copertina e retro
+export function createBookViewer(container, books) {
   const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true })
   renderer.setPixelRatio(Math.min(devicePixelRatio, 2))
   container.append(renderer.domElement)
@@ -18,18 +19,21 @@ export function createBookViewer(container, coverUrls) {
   scene.add(key)
 
   const loader = new THREE.TextureLoader()
-  const covers = coverUrls.map((url) => {
+  const texture = (url) => {
     const tex = loader.load(url)
     tex.colorSpace = THREE.SRGBColorSpace
     tex.anisotropy = 8
     return tex
-  })
+  }
+  const covers = books.map((b) => texture(b.cover))
+  const backs = books.map((b) => texture(b.back))
 
   const paper = new THREE.MeshStandardMaterial({ color: 0xf2eee5, roughness: 0.95 })
   const board = new THREE.MeshStandardMaterial({ color: 0x2b2622, roughness: 0.8 })
   const front = new THREE.MeshStandardMaterial({ map: covers[0], roughness: 0.75 })
+  const back = new THREE.MeshStandardMaterial({ map: backs[0], roughness: 0.75 })
   // ordine facce BoxGeometry: +x, -x (dorso), +y, -y, +z (copertina), -z (retro)
-  const book = new THREE.Mesh(new THREE.BoxGeometry(2.1, 3, 0.24), [paper, board, paper, paper, front, board])
+  const book = new THREE.Mesh(new THREE.BoxGeometry(2.1, 3, 0.24), [paper, board, paper, paper, front, back])
   scene.add(book)
 
   // rotazione: trascinamento dell'utente + leggera oscillazione a riposo
@@ -78,6 +82,7 @@ export function createBookViewer(container, coverUrls) {
   return {
     setBook(i) {
       front.map = covers[i]
+      back.map = backs[i]
       rot.spinTarget += Math.PI * 2 // un giro completo al cambio di libro
     },
   }

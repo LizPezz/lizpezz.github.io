@@ -8,43 +8,118 @@
     <script>document.documentElement.classList.add('js')</script>
   </head>
   <body>
-    <!-- disegni di sfondo: scarabocchio · scritte: battitura a macchina (velocità media) -->
-    <main class="section theme-peach gallery">
-      <nav data-nav></nav>
+    <!--
+      Una diapositiva a tutto schermo per illustrazione (scroll a scatti, come i capitoli dei racconti).
+      disegni: schizzo / scarabocchio · scritte: battitura a macchina
+      .color-reveal = lineart + colorazione con il mouse; le altre sono solo lineart (o solo colore)
+    -->
+    <main class="gallery">
       <h1 class="sr-only">Il mio racconto — Galleria</h1>
 
-      <div class="gallery__top">
-        <figure class="gallery__img gallery__img--mina" data-anim="scribble">
-          <div class="color-reveal" data-color="galleria-mina-colore">
-            <img data-img="galleria-mina-bozza" alt="Mina, ragazza con le corna, tra bozza e colore" />
-          </div>
-        </figure>
-        <div class="gallery__side">
-          <p class="caption" data-anim="type">Mina era una giovane donna con un talento medico straordinario… forse sovrumano</p>
-          <figure class="gallery__img gallery__img--mondo" data-anim="scribble">
-            <img data-img="galleria-mondo" alt="Schizzo a penna di una ragazza con le corna" />
-          </figure>
-          <p class="caption caption--right" data-anim="type">Il mondo è meraviglioso</p>
+      <section class="slide theme-peach slide--ritratto" id="ritratto">
+        <nav data-nav></nav>
+        <div class="slide__art" data-anim="scribble">
+          <img data-img="galleria-ritratto" alt="Ritratto a matita di Enea, ragazzo dai capelli ricci" />
         </div>
-      </div>
+        <div class="slide__text slide__text--a" data-anim="type">
+          <h2 class="subtitle">Lui è Enea…</h2>
+          <p>nato con delle maestose ali brune. Con loro sorvolava i campi, superava le montagne, solcava i mari e superava i cieli.</p>
+          <p>
+            Tuttavia, dopo “qualche anno” – ancora bambino – le ali di Enea smettono di svilupparsi, ma il suo corpo
+            cambia, cresce, e così Enea non potrà presto più volare.
+          </p>
+        </div>
+        <p class="slide__note">
+          <strong>Oltre la lettura:</strong> divertiti a dare vita all’immagine. Trascina il cursore per colorare
+          l’illustrazione.
+        </p>
+      </section>
 
-      <div class="gallery__row">
-        <p class="caption" data-anim="type">Duca ci credeva….</p>
-        <figure class="gallery__img gallery__img--duca" data-anim="scribble">
-          <div class="color-reveal" data-color="galleria-duca-colore">
-            <img data-img="galleria-duca-bozza" alt="Ritratto a matita di Duca con i capelli al vento" />
+      <section class="slide theme-peach slide--arco" id="arco">
+        <p class="slide__text slide__text--a" data-anim="type">
+          Dopo “quindici” anni di dubbi, Enea decide di partire per un lungo viaggio alla ricerca della panacea in
+          grado di curare le sue ali.
+        </p>
+        <div class="slide__art" data-anim="scribble">
+          <div class="color-reveal" data-color="galleria-arco-colore">
+            <img data-img="galleria-arco-bozza" alt="Enea, con le ali, tende l'arco in un campo di grano" />
           </div>
-        </figure>
-      </div>
+        </div>
+        <p class="slide__text slide__text--b" data-anim="type">
+          Se nessuno è riuscito a comprendere la natura della sua disabilità, sarà lui stesso a farlo e a trovare una
+          guarigione.
+        </p>
+      </section>
 
-      <div class="gallery__wide">
-        <figure class="gallery__img gallery__img--musica" data-anim="scribble">
-          <img data-img="galleria-musica" alt="Schizzo di tre musicisti in movimento" />
-        </figure>
-        <p class="caption" data-anim="type">Musica per il figlio di Eva</p>
-      </div>
+      <section class="slide theme-peach slide--festa" id="festa">
+        <div class="slide__art" data-anim="scribble">
+          <img data-img="galleria-festa" alt="Enea e Mina, seduti su un'altura, guardano il villaggio in festa" />
+        </div>
+        <p class="slide__text slide__text--a" data-anim="type">
+          Un viaggio ricco di incontri peculiari e rivelazioni straordinarie, destinate a mettere in dubbio ogni
+          certezza di Enea, su se stesso e sul mondo.
+        </p>
+      </section>
 
-      <p class="gallery__back"><a href="/#mio-racconto">← Torna a Il mio racconto</a></p>
+      <section class="slide theme-peach slide--danza" id="danza">
+        <p class="slide__text slide__text--a" data-anim="type">
+          Contro ogni previsione, si aprono davanti a lui orizzonti sconosciuti e civiltà straordinarie.
+        </p>
+        <div class="slide__art" data-anim="scribble">
+          <div class="color-reveal" data-color="galleria-danza-colore">
+            <img data-img="galleria-danza-bozza" alt="Tre uomini bestia danzano suonando strumenti a fiato" />
+          </div>
+        </div>
+        <p class="slide__text slide__text--b" data-anim="type">
+          Legami profondi, nuove amicizie e vecchie conoscenze… Proprio come per quei luoghi che credeva di conoscere a
+          fondo.
+        </p>
+      </section>
+
+      <section class="slide theme-peach slide--duca" id="duca">
+        <div class="slide__art" data-anim="scribble">
+          <img data-img="galleria-duca" alt="Duca rema su una barca che porta Enea al laboratorio abbandonato" />
+        </div>
+        <p class="slide__text slide__text--a" data-anim="type">
+          Tutto ciò che pensava di sapere sul mondo e su se stesso era sbagliato.
+        </p>
+      </section>
+
+      <section class="slide theme-peach slide--enea" id="enea">
+        <div class="slide__art" data-anim="scribble">
+          <img data-img="galleria-enea" alt="Primo piano a colori di Enea, avvolto dalle sue ali" />
+        </div>
+      </section>
+
+      <!-- la parte a sinistra col cielo stellato è sempre a colori, non dipende dalla colorazione col mouse -->
+      <section class="slide theme-peach slide--lago" id="lago">
+        <div class="slide__art" data-anim="scribble">
+          <div class="color-reveal" data-color="galleria-lago-colore">
+            <img data-img="galleria-lago-bozza" alt="Enea precipita a testa in giù con le ali aperte" />
+          </div>
+          <img class="slide__sky" data-img="galleria-lago-colore" alt="" />
+        </div>
+        <p class="slide__text slide__text--a" data-anim="type">
+          Un lungo, lunghissimo cammino alla scoperta della propria identità e delle storie di migliaia di altre vite.
+        </p>
+      </section>
+
+      <section class="slide theme-peach slide--eep" id="eep">
+        <div class="slide__art" data-anim="scribble">
+          <img data-img="galleria-eep" alt="Eep riposa rannicchiato, avvolto dalle ali" />
+        </div>
+        <p class="slide__text slide__text--a" data-anim="type">Chi è lui, in realtà?</p>
+        <p class="slide__text slide__text--b" data-anim="type">E cosa è successo davvero alle sue ali?</p>
+      </section>
+
+      <section class="slide theme-peach slide--kaede" id="kaede">
+        <div class="slide__art" data-anim="scribble">
+          <div class="color-reveal" data-color="galleria-kaede-colore">
+            <img data-img="galleria-kaede-bozza" alt="Kaede, leader della ribellione, con le ali spiegate e una lancia" />
+          </div>
+        </div>
+        <p class="slide__back"><a href="/#mio-racconto">← Torna a Il mio racconto</a></p>
+      </section>
     </main>
     <script type="module" src="/src/pages/gallery.js"></script>
   </body>

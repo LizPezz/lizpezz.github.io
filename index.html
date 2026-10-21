@@ -22,10 +22,19 @@
           </p>
           <a class="btn" href="#contatti" data-anim="wipe"><span>Lavora con</span></a>
         </div>
-        <!-- sfondo: bozza (schizzo) + colore che si dipinge col mouse -->
+        <p class="hero__note">
+          <strong>Oltre la lettura:</strong> divertiti a dare vita all’immagine. Trascina il cursore per colorare
+          l’illustrazione.
+        </p>
+        <!-- sfondo a tutta pagina: bozza (schizzo) + colore che si dipinge col mouse.
+             Le scritte sono scure sulla bozza e si schiariscono dove l'immagine viene colorata. -->
         <div class="hero__art" data-anim="scribble">
-          <div class="color-reveal" data-color="hero-colore">
-            <img data-img="hero-bozza" alt="Illustrazione a carboncino di una ragazza con le corna che sfiora un velo" />
+          <div
+            class="color-reveal"
+            data-color="hero-colore"
+            data-paint-text=".hero > .nav a, .hero__brand, .hero__copy .display, .hero__copy .lead, .hero__note"
+          >
+            <img data-img="hero-bozza" alt="Illustrazione a carboncino di Mina, una ragazza con le corna che sfiora un velo" />
           </div>
         </div>
       </section>

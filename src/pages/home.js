@@ -29,7 +29,7 @@ new IntersectionObserver(
     if (!entry.isIntersecting) return
     io.disconnect()
     const { createBookViewer } = await import('../three/book.js')
-    viewer = createBookViewer(stage, books.map((b) => imageUrl(b.cover)))
+    viewer = createBookViewer(stage, books.map((b) => ({ cover: imageUrl(b.cover), back: imageUrl(b.back) })))
     viewer.setBook(buttons.findIndex((b) => b.getAttribute('aria-pressed') === 'true'))
   },
   { rootMargin: '600px' },

@@ -91,6 +91,9 @@ main > .section {
 .theme-peach {
   --bg: var(--peach);
   --fg: var(--ink);
+  background-image: url('/images/mio/sfondo-carta.webp');
+  background-position: center;
+  background-size: cover;
 }
 .theme-story {
   --bg: #14110d;
@@ -317,8 +320,23 @@ main > .section {
 }
 .hero__art {
   position: absolute;
-  inset: 0 6% 0 48.6%;
+  inset: 0;
   z-index: 1;
+}
+.hero__art img {
+  object-position: 100% 50%; /* Mina è sulla destra del disegno: su schermi meno larghi resta lontana dal testo */
+}
+.hero .color-reveal__hint {
+  display: none; /* c'è già .hero__note */
+}
+/* scritte scure sulla bozza, si schiariscono dove il disegno è colorato (--painted da colorReveal.js) */
+.hero > .nav a,
+.hero__brand,
+.hero__copy .display,
+.hero__copy .lead,
+.hero__note {
+  color: color-mix(in srgb, #fff calc(var(--painted, 0) * 100%), var(--ink));
+  transition: color 0.6s;
 }
 .hero__brand {
   position: absolute;
@@ -339,6 +357,23 @@ main > .section {
   gap: 2.2rem;
   width: 46%;
   padding: 4rem 0 5rem var(--gutter);
+  pointer-events: none; /* si colora anche passando sopra al testo */
+}
+.hero__copy .btn {
+  pointer-events: auto;
+}
+.hero__note {
+  position: absolute;
+  bottom: 2.2rem;
+  left: var(--gutter);
+  z-index: 2;
+  max-width: 34rem;
+  font-size: 0.8rem;
+  pointer-events: none;
+}
+.hero__note strong {
+  font-weight: 400;
+  text-transform: uppercase;
 }
 
 /* ───────── Intro ───────── */
@@ -928,81 +963,130 @@ html:has(.story) {
 }
 
 /* ───────── Galleria ───────── */
-.gallery {
-  min-height: 100svh;
-  padding-bottom: 4rem;
+/* Una diapositiva a tutto schermo per illustrazione (tutte 16:9). Su schermo largo il disegno
+   riempie la diapositiva e le scritte sono posizionate sopra, come nel progetto grafico;
+   su schermo stretto il disegno diventa una fascia 16:9 fra le scritte. */
+html:has(.gallery) {
+  scroll-snap-type: y mandatory;
 }
-.gallery > .nav {
+.slide {
+  position: relative;
+  min-height: 100svh;
+  overflow: hidden;
+  background-color: var(--bg);
+  color: var(--fg);
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+.slide > .nav {
   position: absolute;
   inset: 0 0 auto;
+  z-index: 5;
 }
-.gallery__img {
-  overflow: hidden;
+.slide__art {
+  position: absolute;
+  inset: 0;
 }
-.gallery__img > img {
+.slide__art img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
-.caption {
-  max-width: 24ch;
-  font: 400 clamp(1rem, 1.5vw, 1.3rem) / 1.2 var(--font-head);
-}
-.gallery__top {
-  display: grid;
-  grid-template-columns: 59% 1fr;
-  gap: 1.2%;
-}
-.gallery__img--mina {
-  aspect-ratio: 600 / 850;
-}
-.gallery__side {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  padding-top: 11rem;
-}
-.gallery__side .caption {
-  margin-inline: 14% 6%;
-}
-.gallery__side .caption--right {
-  align-self: flex-end;
-  text-align: right;
-}
-.gallery__img--mondo {
-  aspect-ratio: 520 / 470;
-}
-.gallery__row {
-  display: grid;
-  grid-template-columns: 22% 72%;
-  gap: 1%;
-  margin-top: 2.5rem;
-}
-.gallery__row .caption {
-  padding: 60% 0 0 30%;
-}
-.gallery__img--duca {
-  aspect-ratio: 957 / 1140;
-}
-.gallery__wide {
-  position: relative;
-  margin: 3rem 12% 0 16%;
-}
-.gallery__img--musica {
-  aspect-ratio: 16 / 10;
-}
-.gallery__img--musica > img {
-  object-fit: contain;
-}
-.gallery__wide .caption {
+.slide__text,
+.slide__note,
+.slide__back {
   position: absolute;
-  bottom: 8%;
-  left: -8%;
-  max-width: 14ch;
+  z-index: 3;
+  max-width: 22rem;
+  font: 400 clamp(0.95rem, 1.15vw, 1.1rem) / 1.3 var(--font-body);
+  pointer-events: none; /* si colora anche passando sopra alle scritte */
 }
-.gallery__back {
-  margin: 4rem var(--gutter) 0;
+.slide__text p + p {
+  margin-top: 1em;
+}
+.slide__text .subtitle {
+  margin-bottom: 1.2rem;
+}
+.slide__note {
+  bottom: 2.5rem;
+  left: var(--gutter);
+  max-width: 36rem;
+  font-size: 0.8rem;
+}
+.slide__note strong {
+  font-weight: 400;
+  text-transform: uppercase;
+}
+.slide__back {
+  bottom: 2.5rem;
+  left: var(--gutter);
   font-family: var(--font-head);
+  pointer-events: auto;
+}
+
+/* posizioni delle scritte, diapositiva per diapositiva (dal progetto grafico) */
+.slide--ritratto .slide__text--a {
+  top: 50%;
+  left: 9%;
+  translate: 0 -50%;
+}
+.slide--arco .slide__text--a {
+  top: 20%;
+  left: 7.5%;
+  max-width: 15rem;
+}
+.slide--arco .slide__text--b {
+  top: 60%;
+  left: 76%;
+  max-width: 13rem;
+}
+.slide--festa .slide__text--a {
+  top: 80%;
+  left: 59%;
+  max-width: 24rem;
+}
+.slide--danza .slide__text--a {
+  top: 12%;
+  left: 6%;
+  max-width: 15rem;
+}
+.slide--danza .slide__text--b {
+  top: 78%;
+  left: 6%;
+  max-width: 15rem;
+}
+.slide--duca .slide__text--a {
+  top: 45%;
+  left: 71%;
+  max-width: 13rem;
+}
+.slide--eep .slide__text--a {
+  top: 25%;
+  left: 66%;
+}
+.slide--eep .slide__text--b {
+  top: 65%;
+  left: 66%;
+  max-width: 13rem;
+}
+/* cielo stellato a sinistra: sempre a colori */
+.slide--lago {
+  --sky: 44.5%;
+}
+.slide__sky {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  clip-path: inset(0 calc(100% - var(--sky)) 0 0);
+  pointer-events: none;
+}
+.slide--lago .slide__text--a {
+  top: 46%;
+  left: calc(var(--sky) / 2);
+  max-width: 19rem;
+  color: #fff;
+  text-align: center;
+  translate: -50% -50%;
 }
 
 /* ───────── Mobile ───────── */
@@ -1029,6 +1113,13 @@ html:has(.story) {
     position: relative;
     inset: auto;
     height: 80svh;
+  }
+  .hero__art img {
+    object-position: 78% 50%; /* fascia verticale: inquadra Mina */
+  }
+  .hero__note {
+    position: static;
+    margin: 0 var(--gutter) 1.5rem;
   }
 
   .intro__grid,
@@ -1132,25 +1223,35 @@ html:has(.story) {
     margin-bottom: 2.5rem;
   }
 
-  .gallery__top,
-  .gallery__row {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
+  html:has(.gallery) {
+    scroll-snap-type: y proximity;
   }
-  .gallery__side {
-    padding-top: 0;
+  .slide {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2rem;
+    padding: 6rem 0 3rem;
+    scroll-snap-stop: normal;
   }
-  .gallery__side .caption,
-  .gallery__row .caption {
-    margin-inline: var(--gutter);
-    padding: 0;
+  .slide__art {
+    position: relative;
+    aspect-ratio: 16 / 9;
   }
-  .gallery__wide {
-    margin-inline: var(--gutter);
-  }
-  .gallery__wide .caption {
+  .slide .slide__text,
+  .slide__note,
+  .slide__back {
     position: static;
-    margin-top: 1rem;
+    max-width: none;
+    margin-inline: var(--gutter);
+    translate: none;
+    text-align: left;
+  }
+  /* il testo sta su un riquadro scuro come il cielo stellato, il disegno resta sulla carta */
+  .slide--lago .slide__text--a {
+    margin-inline: 0;
+    padding: 3rem var(--gutter);
+    background: #0b0c12;
   }
 }
 
