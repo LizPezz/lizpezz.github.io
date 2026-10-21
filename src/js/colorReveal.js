@@ -8,6 +8,7 @@ import { imageUrl } from '../images.js'
 // Il colore segue object-fit / object-position dell'<img> della bozza, così le due versioni combaciano.
 // Con data-paint-text="selettore" gli elementi indicati ricevono --painted (0…1): quanto è colorata
 // la parte di disegno che sta sotto di loro (es. scritte scure che si schiariscono col colore).
+// Con data-prepaint="0.4" la parte sinistra (40% della larghezza) è già colorata, con un bordo a pennellate.
 //
 // Il pennello è public/images/brush.png (ricavato da res/brush.png: ritagliato, sfondo
 // trasparente): ogni pennellata è una serie di "timbri" di quell'immagine, ruotati nel
@@ -42,17 +43,21 @@ function setup(el) {
   let down = false
   let started = false
   let last = null
+  let sized = false
 
   const resize = () => {
-    const dpr = Math.min(devicePixelRatio || 1, 1.5)
+    const dpr = Math.min(devicePixelRatio || 1, 2) // come l'<img>: il colore non deve perdere definizione
     const w = el.clientWidth
     const h = el.clientHeight
     if (!w || !h) return
     canvas.width = Math.round(w * dpr)
     canvas.height = Math.round(h * dpr)
-    if (!mask.width) {
+    if (!sized) {
+      // (un canvas nuovo è già 300x150: serve un flag, non basta controllare mask.width)
+      sized = true
       mask.width = MASK_W
       mask.height = Math.max(1, Math.round((MASK_W * h) / w))
+      if (el.dataset.prepaint) prepaint(parseFloat(el.dataset.prepaint))
     }
     if (sketch) {
       const cs = getComputedStyle(sketch)
@@ -93,7 +98,7 @@ function setup(el) {
 
   let measuring = 0
   const measure = () => {
-    if (!paintText.length || measuring || !mask.width) return
+    if (!paintText.length || measuring || !sized) return
     measuring = setTimeout(() => {
       measuring = 0
       const box = el.getBoundingClientRect()
@@ -135,6 +140,23 @@ function setup(el) {
     }
     schedule()
     measure()
+  }
+
+  // colora in partenza la parte sinistra fino a `edge` (frazione della larghezza)
+  const prepaint = (edge) => {
+    const size = 0.16
+    mctx.fillStyle = '#000'
+    mctx.fillRect(0, 0, (edge - size * 0.3) * mask.width, mask.height)
+    const border = () => {
+      // pennellate verticali lungo il bordo, così non c'è uno stacco netto
+      const step = (size * SPACING * mask.width) / mask.height
+      for (let y = -step; y <= 1 + step; y += step) {
+        const x = edge - size * 0.25 + (Math.random() - 0.5) * 0.05
+        dab([x, y], size * (0.8 + Math.random() * 0.4), Math.PI / 2)
+      }
+    }
+    if (brush.naturalWidth) border()
+    else brush.addEventListener('load', border, { once: true })
   }
 
   const stroke = (from, to) => {

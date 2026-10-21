@@ -29,10 +29,6 @@
             cambia, cresce, e così Enea non potrà presto più volare.
           </p>
         </div>
-        <p class="slide__note">
-          <strong>Oltre la lettura:</strong> divertiti a dare vita all’immagine. Trascina il cursore per colorare
-          l’illustrazione.
-        </p>
       </section>
 
       <section class="slide theme-peach slide--arco" id="arco">
@@ -91,13 +87,12 @@
         </div>
       </section>
 
-      <!-- la parte a sinistra col cielo stellato è sempre a colori, non dipende dalla colorazione col mouse -->
+      <!-- la parte a sinistra col cielo stellato è già colorata (data-prepaint), il resto si colora col mouse -->
       <section class="slide theme-peach slide--lago" id="lago">
         <div class="slide__art" data-anim="scribble">
-          <div class="color-reveal" data-color="galleria-lago-colore">
+          <div class="color-reveal" data-color="galleria-lago-colore" data-prepaint="0.445">
             <img data-img="galleria-lago-bozza" alt="Enea precipita a testa in giù con le ali aperte" />
           </div>
-          <img class="slide__sky" data-img="galleria-lago-colore" alt="" />
         </div>
         <p class="slide__text slide__text--a" data-anim="type">
           Un lungo, lunghissimo cammino alla scoperta della propria identità e delle storie di migliaia di altre vite.

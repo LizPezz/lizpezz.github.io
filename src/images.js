@@ -26,7 +26,7 @@ export const images = {
   'libro-formicaio-retro': { src: 'images/libri/formicaio-retro.webp', label: 'Storia di un formicaio - retro', w: 1150, h: 1600, tone: 'dark' },
 
   // Home — Il mio racconto
-  enea: { src: 'images/mio/destriero-bozza.webp', label: 'Disegno Enea', w: 908, h: 1033, tone: 'line' },
+  enea: { src: 'images/mio/destriero-bozza.webp', label: 'Disegno Enea', w: 1920, h: 1080, tone: 'line' },
 
   // Racconto "Wyder, il guardiano del faro"
   'wyder-1': { src: "images/Wyder/Storyboard_01.webp", label: 'Wyder - cap. 1', w: 1920, h: 1300, tone: 'dark' },

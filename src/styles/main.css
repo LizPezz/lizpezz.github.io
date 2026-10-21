@@ -553,9 +553,6 @@ main > .section {
   margin-top: auto;
   padding: 3.5rem var(--gutter) 0;
 }
-.mio__left {
-  position: relative;
-}
 .mio__right {
   position: relative;
   z-index: 1;
@@ -565,15 +562,17 @@ main > .section {
   z-index: 1;
   padding-right: 0;
 }
+/* il disegno di Enea è un livello a tutta sezione (16:9, come nel progetto grafico),
+   sotto al titolo e ai testi */
 .mio__art {
-  width: 94%;
-  aspect-ratio: 1;
-  margin: -7rem 0 0 6%;
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
 }
 .mio__art img {
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: cover;
 }
 .mio__right p + p {
   margin-top: 0;
@@ -750,6 +749,25 @@ main > .section {
   max-width: calc(68rem + 2 * var(--gutter));
   margin-inline: auto;
   padding-inline: var(--gutter);
+}
+
+/* Il mio racconto: il disegno segue la larghezza dello schermo, quindi anche le colonne
+   (come nel progetto grafico: titolo al 7.7%, testo dal 60.5%) */
+@media (min-width: 761px) {
+  .mio__grid,
+  .mio__follow {
+    max-width: none;
+    padding-inline: 7.7vw 5.5vw;
+  }
+  .mio__grid {
+    grid-template-columns: 1fr 34vw;
+    margin-top: 0; /* titolo e testo subito sotto al menu, l'invito ai contatti in fondo */
+    padding-top: 4rem;
+  }
+  .mio__follow {
+    margin-top: auto;
+    padding-left: 5.5vw;
+  }
 }
 
 /* ───────── Pagina racconto (Wyder) ───────── */
@@ -1069,16 +1087,9 @@ html:has(.gallery) {
   left: 66%;
   max-width: 13rem;
 }
-/* cielo stellato a sinistra: sempre a colori */
+/* cielo stellato a sinistra: già colorato (data-prepaint="0.445") */
 .slide--lago {
   --sky: 44.5%;
-}
-.slide__sky {
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  clip-path: inset(0 calc(100% - var(--sky)) 0 0);
-  pointer-events: none;
 }
 .slide--lago .slide__text--a {
   top: 46%;
@@ -1162,7 +1173,13 @@ html:has(.gallery) {
   }
 
   .mio__art {
-    margin: -2rem 0 0;
+    position: relative;
+    inset: auto;
+    aspect-ratio: 9 / 10;
+    margin: -1rem calc(-1 * var(--gutter)) 0;
+  }
+  .mio__art img {
+    object-position: 22% 0; /* inquadra Enea, che sta a sinistra del disegno */
   }
   .mio__follow {
     margin-top: 3rem;
