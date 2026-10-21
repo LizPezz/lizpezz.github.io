@@ -9,7 +9,12 @@ export const stories = [
     subtitle: 'Concept art e storyboard',
     href: base + 'racconti/wyder.html',
   },
-  { image: 'racconto-nappy', title: 'Nappy<br>il dormiglione', subtitle: 'Concept art e storyboard', href: null },
+  {
+    image: 'racconto-nappy',
+    title: 'Nappy,<br>il dormiglione',
+    subtitle: 'Concept art e storyboard',
+    href: base + 'racconti/nappy.html',
+  },
   { image: 'racconto-3', title: 'Titolo<br>del racconto', subtitle: 'Descrizione del racconto', href: null },
   { image: 'racconto-4', title: 'Titolo<br>del racconto', subtitle: 'Descrizione del racconto', href: null },
   { image: 'racconto-5', title: 'Titolo<br>del racconto', subtitle: 'Descrizione del racconto', href: null },

@@ -12,7 +12,7 @@ export const images = {
 
   // Home — Racconti di carbone (carosello)
   'racconto-wyder': { src: "images/Wyder/Character.webp", label: 'Wyder - Il guardiano del faro', w: 1000, h: 1250, tone: 'dark' },
-  'racconto-nappy': { src: 'images/Nappy/Cha-flashart.webp', label: 'Nappy il dormiglione', w: 1000, h: 1250, tone: 'color' },
+  'racconto-nappy': { src: 'images/Nappy/Cha-flashart.webp', label: 'Nappy, il dormiglione', w: 1000, h: 1250, tone: 'color' },
   'racconto-3': { src: null, label: 'Racconto 3', w: 1000, h: 1250, tone: 'dark' },
   'racconto-4': { src: null, label: 'Racconto 4', w: 1000, h: 1250, tone: 'sketch' },
   'racconto-5': { src: null, label: 'Racconto 5', w: 1000, h: 1250, tone: 'color' },
@@ -32,6 +32,11 @@ export const images = {
   'wyder-1': { src: "images/Wyder/Storyboard_01.webp", label: 'Wyder - cap. 1', w: 1920, h: 1300, tone: 'dark' },
   'wyder-2': { src: "images/Wyder/Environnement-INDOOR.webp", label: 'Wyder - cap. 2', w: 1920, h: 1300, tone: 'dark' },
   'wyder-3': { src: "images/Wyder/Character.webp", label: '', w: 1920, h: 2000, tone: 'dark' },
+
+  // Racconto "Nappy, il dormiglione"
+  'nappy-1': { src: 'images/Nappy/storyboard.webp', label: 'Nappy - cap. 1', w: 2400, h: 1350, tone: 'dark' },
+  'nappy-2': { src: 'images/Nappy/storyboard-4.webp', label: 'Nappy - cap. 2', w: 1414, h: 2000, tone: 'color' },
+  'nappy-3': { src: 'images/Nappy/Cha-flashart.webp', label: 'Nappy - cap. 3', w: 1414, h: 2000, tone: 'color' },
 
   // Galleria de "Il mio racconto": una diapositiva per illustrazione, tutte 1920x1080.
   // "-bozza" = lineart / schizzo, "-colore" = versione che si dipinge col mouse

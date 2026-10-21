@@ -13,6 +13,7 @@ export default defineConfig({
         home: page('./index.html'),
         galleria: page('./galleria.html'),
         wyder: page('./racconti/wyder.html'),
+        nappy: page('./racconti/nappy.html'),
       },
     },
   },
