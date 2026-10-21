@@ -25,6 +25,7 @@ export function initSnap(selector = 'main > .section') {
     'wheel',
     (e) => {
       if (!desktop.matches || e.ctrlKey || Math.abs(e.deltaY) < Math.abs(e.deltaX)) return
+      if (document.querySelector('dialog[open]')) return // es. libro ingrandito: la pagina sotto non si muove
       const dir = Math.sign(e.deltaY)
       // sezione corrente: quella che contiene il centro dello schermo
       const middle = scrollY + innerHeight / 2

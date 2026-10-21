@@ -22,6 +22,7 @@ const select = (i) => {
   flipbook?.show(books[i])
 }
 buttons.forEach((b, i) => b.addEventListener('click', () => select(i)))
+document.querySelector('.libri__zoom').addEventListener('click', () => flipbook?.enlarge())
 
 new IntersectionObserver(
   async ([entry], io) => {
