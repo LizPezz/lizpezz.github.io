@@ -1229,6 +1229,9 @@ html:has(dialog[open]) {
   border: 0;
   background: rgb(20 17 13 / 0.94);
   color: var(--paper);
+  /* il libro ci sta sempre: niente scroll. Senza, la piega dell'angolo e la sua ombra
+     (che escono dal libro al passaggio del mouse) facevano comparire le barre di scorrimento */
+  overflow: hidden;
 }
 .book-view[open] {
   display: grid;
