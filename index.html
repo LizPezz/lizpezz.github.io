@@ -91,8 +91,11 @@
             </p>
             <div class="libri__picker" role="group" aria-label="Scegli un libro"></div>
           </div>
-          <!-- modello 3D (three.js): dissolvenza veloce di entrata -->
-          <div class="libri__stage" data-anim="fade" data-speed="fast" aria-label="Modello 3D del libro: trascina per ruotarlo"></div>
+          <!-- libro sfogliabile (flipbook.js): dissolvenza veloce di entrata -->
+          <div class="libri__book">
+            <div class="libri__stage" data-anim="fade" data-speed="fast" aria-label="Libro sfogliabile: clicca sulla pagina di destra per andare avanti, su quella di sinistra per tornare indietro"></div>
+            <p class="libri__hint" data-anim="fade">Clicca sulla pagina per sfogliare il libro</p>
+          </div>
         </div>
       </section>
 

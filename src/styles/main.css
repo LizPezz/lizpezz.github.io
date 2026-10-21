@@ -541,15 +541,38 @@ main > .section {
   margin: 3rem 0 0 5rem;
 }
 .libri__stage {
+  display: grid;
+  align-items: center;
   aspect-ratio: 4 / 3;
-  cursor: grab;
-  touch-action: pan-y;
 }
-.libri__stage.is-dragging {
-  cursor: grabbing;
+.libri__hint {
+  margin-top: 0.8rem;
+  font-size: 0.8rem;
+  text-align: center;
+  opacity: 0.7;
 }
-.libri__stage canvas {
-  display: block;
+/* libro sfogliabile (flipbook.js) */
+.flipbook {
+  cursor: pointer;
+  transition: translate 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+}
+/* da chiuso si vede una pagina sola: il libro si sposta per restare al centro */
+.flipbook[data-state='cover'] {
+  translate: -25% 0;
+}
+.flipbook[data-state='back'] {
+  translate: 25% 0;
+}
+.flipbook__page {
+  background: #f2eee5;
+  box-shadow: 0 0.6rem 1.6rem rgb(0 0 0 / 0.25);
+}
+.flipbook__page img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+  user-select: none;
 }
 
 /* ───────── Il mio racconto ───────── */
@@ -947,6 +970,22 @@ html:has(.story) {
 .chapter.is-open .chapter__arrow {
   rotate: 180deg;
 }
+/* con il mouse la freccia si nasconde quando il mouse è fermo e ricompare appena si muove
+   (story.js aggiunge .show-arrows); su touch resta sempre visibile.
+   Si usa filter e non opacity, che è già dell'animazione "comparsa". */
+.js .chapter__arrow[data-anim] {
+  transition:
+    opacity 0.3s,
+    scale 0.45s cubic-bezier(0.3, 1.6, 0.5, 1),
+    rotate 0.5s,
+    filter 0.5s;
+}
+@media (hover: hover) and (pointer: fine) {
+  .story:not(.show-arrows) .chapter__arrow:not(:focus-visible) {
+    filter: opacity(0);
+    pointer-events: none;
+  }
+}
 
 .chapter__text {
   position: relative;
@@ -1199,6 +1238,9 @@ html:has(.gallery) {
   }
   .libri__picker {
     margin-left: 0;
+  }
+  .libri__stage {
+    aspect-ratio: auto; /* una pagina alla volta: il riquadro segue l'altezza della pagina */
   }
 
   .mio__art {

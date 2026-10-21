@@ -17,14 +17,6 @@ export const images = {
   'racconto-4': { src: null, label: 'Racconto 4', w: 1000, h: 1250, tone: 'sketch' },
   'racconto-5': { src: null, label: 'Racconto 5', w: 1000, h: 1250, tone: 'color' },
 
-  // Home — Libri di carbone (copertina e retro sul modello 3D)
-  'libro-assaporando': { src: 'images/libri/assaporando-fronte.webp', label: 'Assaporando il viaggio', w: 1131, h: 1600, tone: 'color' },
-  'libro-assaporando-retro': { src: 'images/libri/assaporando-retro.webp', label: 'Assaporando il viaggio - retro', w: 1128, h: 1600, tone: 'color' },
-  'libro-elefante': { src: 'images/libri/elefante-fronte.webp', label: 'Il mio elefante e leggero', w: 1090, h: 1600, tone: 'sketch' },
-  'libro-elefante-retro': { src: 'images/libri/elefante-retro.webp', label: 'Il mio elefante e leggero - retro', w: 1105, h: 1600, tone: 'sketch' },
-  'libro-formicaio': { src: 'images/libri/formicaio-fronte.webp', label: 'Storia di un formicaio', w: 1150, h: 1600, tone: 'dark' },
-  'libro-formicaio-retro': { src: 'images/libri/formicaio-retro.webp', label: 'Storia di un formicaio - retro', w: 1150, h: 1600, tone: 'dark' },
-
   // Home — Il mio racconto
   enea: { src: 'images/mio/destriero-bozza.webp', label: 'Disegno Enea', w: 1920, h: 1080, tone: 'line' },
 

@@ -20,9 +20,11 @@ export const stories = [
   { image: 'racconto-5', title: 'Titolo<br>del racconto', subtitle: 'Descrizione del racconto', href: null },
 ]
 
-// Libri della sezione "Libri di carbone" (copertina e retro mostrati sul modello 3D).
+// Libri della sezione "Libri di carbone", sfogliabili.
+// Le pagine sono in public/images/libri/<slug>/00.webp … (00 = copertina, l'ultima = retro);
+// `pages` è quante sono.
 export const books = [
-  { title: 'Assaporando il viaggio', cover: 'libro-assaporando', back: 'libro-assaporando-retro' },
-  { title: 'Il mio elefante e’ leggero', cover: 'libro-elefante', back: 'libro-elefante-retro' },
-  { title: 'Storia di un formicaio', cover: 'libro-formicaio', back: 'libro-formicaio-retro' },
+  { title: 'Assaporando il viaggio', slug: 'assaporando', pages: 18 },
+  { title: 'Il mio elefante e’ leggero', slug: 'elefante', pages: 12 },
+  { title: 'Storia di un formicaio', slug: 'formicaio', pages: 12 },
 ]

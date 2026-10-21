@@ -55,5 +55,21 @@ document.querySelectorAll('.chapter').forEach((chapter) => {
   })
 })
 
+// Freccia visibile solo mentre si muove il mouse (vedi .show-arrows in main.css)
+const story = document.querySelector('.story')
+const ARROW_IDLE = 1800 // ms di mouse fermo prima che la freccia sparisca
+let idle = null
+const hideArrows = () => {
+  // non sparisce sotto il puntatore
+  if (document.querySelector('.chapter__arrow:hover')) idle = setTimeout(hideArrows, ARROW_IDLE)
+  else story.classList.remove('show-arrows')
+}
+addEventListener('pointermove', (e) => {
+  if (e.pointerType !== 'mouse') return
+  story.classList.add('show-arrows')
+  clearTimeout(idle)
+  idle = setTimeout(hideArrows, ARROW_IDLE)
+})
+
 initSnap('.chapter')
 initCommon()
