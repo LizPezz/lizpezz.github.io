@@ -757,12 +757,13 @@ main > .section {
   padding-inline: var(--gutter);
 }
 
-/* Racconto storie: colonne come nel progetto grafico (titolo al 7.7%, testo dal 48.5%) */
+/* Racconto storie: colonne come nel progetto grafico (testo largo il 42.5% dello schermo),
+   margini uguali ai due lati e allineati al menu, così il blocco e i pulsanti sono centrati */
 @media (min-width: 761px) {
   .intro__grid {
-    grid-template-columns: 1fr 42.5vw;
-    max-width: none;
-    padding-inline: 7.7vw 9vw;
+    grid-template-columns: 1fr min(42.5vw, 39rem); /* oltre i 39rem le righe sarebbero troppo lunghe */
+    max-width: 90rem; /* su schermi più larghi del progetto (1440px) il blocco resta compatto al centro */
+    padding-inline: var(--gutter);
   }
   .intro .display {
     white-space: nowrap; /* "Racconto storie" su una riga */
