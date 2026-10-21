@@ -1106,17 +1106,15 @@ html:has(.gallery) {
   left: 66%;
   max-width: 13rem;
 }
-/* cielo stellato a sinistra: già colorato (data-prepaint="0.445") */
-.slide--lago {
-  --sky: 44.5%;
-}
+/* testo scuro sulla bozza, chiaro sul cielo stellato colorato (--painted da colorReveal.js) */
 .slide--lago .slide__text--a {
   top: 46%;
-  left: calc(var(--sky) / 2);
+  left: 22%;
   max-width: 19rem;
-  color: #fff;
+  color: color-mix(in srgb, #fff calc(var(--painted, 0) * 100%), var(--ink));
   text-align: center;
   translate: -50% -50%;
+  transition: color 0.6s;
 }
 
 /* ───────── Mobile ───────── */
@@ -1285,12 +1283,6 @@ html:has(.gallery) {
     margin-inline: var(--gutter);
     translate: none;
     text-align: left;
-  }
-  /* il testo sta su un riquadro scuro come il cielo stellato, il disegno resta sulla carta */
-  .slide--lago .slide__text--a {
-    margin-inline: 0;
-    padding: 3rem var(--gutter);
-    background: #0b0c12;
   }
 }
 
