@@ -19,7 +19,9 @@ const BRUSH = 0.24
 const SPACING = 0.18 // distanza fra due timbri, in frazione della larghezza del timbro
 const FLOW = 0.45 // opacità di ogni timbro
 const FULL = 0.6 // copertura oltre la quale una scritta con data-paint-text è del tutto schiarita
-const HOLD = 180 // ms di dito fermo prima che parta la pennellata (touch)
+// ms di dito fermo prima che parta la pennellata (touch). Non troppo poco: i disegni occupano quasi
+// tutto lo schermo e chi appoggia il dito un attimo prima di scorrere non deve ritrovarsi a colorare
+const HOLD = 350
 const SLOP = 8 // px di movimento del dito entro cui lo si considera ancora fermo
 
 const touchOnly = matchMedia('(hover: none)')

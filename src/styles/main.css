@@ -1490,61 +1490,76 @@ html:has(dialog[open]) {
     margin-bottom: 2.5rem;
   }
 
+  /* Sul telefono la galleria è un unico racconto che si scorre: niente diapositive alte quanto
+     lo schermo (lasciavano grandi vuoti e servivano più strisciate per arrivare al disegno dopo),
+     ma disegni a tutta larghezza, il più alti possibile, con le scritte attaccate. */
   .slide {
+    min-height: 0;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    gap: 2rem;
-    padding: 6rem 0 3rem;
+    gap: 1.4rem;
+    padding: 2.5rem 0;
+  }
+  .slide:has(> .nav) {
+    padding-top: 6.5rem;
+  }
+  .slide:last-child {
+    padding-bottom: 4rem;
   }
   /* I disegni sono 16:9 con il soggetto spostato di lato per lasciare posto alle scritte:
-     a tutta larghezza sul telefono il soggetto restava piccolo e decentrato.
-     Qui ogni disegno è ritagliato (--crop) attorno al soggetto (--fx = punto orizzontale da tenere). */
+     a tutta larghezza sul telefono il soggetto restava piccolo. Qui ogni disegno è ritagliato
+     in verticale (--crop) attorno al soggetto (--fx = punto orizzontale da tenere al centro),
+     così occupa quasi tutto lo schermo; solo le scene larghe restano più basse. */
   .slide__art {
     position: relative;
-    aspect-ratio: var(--crop, 1);
-    max-height: 70svh;
+    aspect-ratio: var(--crop, 3 / 4);
+    max-height: 82svh;
   }
   .slide__art img {
     object-position: var(--fx, 50%) 50%;
   }
   .slide--ritratto {
-    --fx: 90%;
+    --fx: 81%;
   }
   .slide--arco {
-    --crop: 4 / 5;
+    --crop: 2 / 3;
   }
   .slide--festa {
-    --crop: 4 / 3;
-    --fx: 35%;
+    --crop: 5 / 4; /* Mina ed Enea sono lontani: più stretto se ne perderebbe uno */
+    --fx: 38%;
   }
   .slide--danza {
-    --crop: 4 / 3;
-    --fx: 79%;
+    --crop: 1;
+    --fx: 64%;
   }
   .slide--duca {
-    --fx: 21%;
+    --crop: 4 / 5;
+    --fx: 38%;
   }
   .slide--enea {
-    --fx: 80%;
+    --crop: 2 / 3;
+    --fx: 75%;
   }
   .slide--lago {
-    --crop: 4 / 5;
-    --fx: 86%;
+    --crop: 2 / 3;
+    --fx: 78%;
   }
   .slide--eep {
-    --crop: 4 / 5;
-    --fx: 12%;
+    --crop: 2 / 3;
+    --fx: 16%;
   }
   .slide--kaede {
+    --crop: 4 / 5;
     --fx: 62%;
   }
   .slide .slide__text,
   .slide__note,
   .slide__back {
     position: static;
-    max-width: none;
+    max-width: 34rem;
     margin-inline: var(--gutter);
+    font-size: 1.05rem;
+    line-height: 1.4;
     translate: none;
     text-align: left;
   }
