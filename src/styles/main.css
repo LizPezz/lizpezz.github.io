@@ -23,6 +23,27 @@
 
 html {
   scroll-behavior: smooth;
+  -webkit-tap-highlight-color: transparent; /* niente lampo grigio al tocco: i pulsanti hanno già il loro stato premuto */
+  -webkit-text-size-adjust: 100%;
+}
+
+/* pulsanti e link rispondono subito al tocco (niente attesa del doppio tocco) */
+a,
+button {
+  touch-action: manipulation;
+}
+
+/* testi diversi per mouse e dito */
+.for-touch {
+  display: none;
+}
+@media (hover: none) {
+  .for-mouse {
+    display: none;
+  }
+  .for-touch {
+    display: inline;
+  }
 }
 
 body {
@@ -168,12 +189,19 @@ main > .section {
   cursor: pointer;
   transition: background-color 0.25s;
 }
-.btn:hover,
 .btn[aria-pressed='true'] {
   background: var(--beige);
 }
-.theme-beige .btn:hover {
-  background: var(--peach);
+.btn:active {
+  background: var(--beige);
+}
+@media (hover: hover) and (pointer: fine) {
+  .btn:hover {
+    background: var(--beige);
+  }
+  .theme-beige .btn:hover {
+    background: var(--peach);
+  }
 }
 .btn span {
   display: inline-block;
@@ -282,8 +310,10 @@ main > .section {
   height: 100%;
   overflow: hidden;
   cursor: crosshair;
-  touch-action: pan-y;
+  touch-action: pan-y; /* in verticale scorre la pagina; colorReveal.js la blocca solo mentre si colora */
   user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none; /* tenendo premuto iOS aprirebbe il menu dell'immagine */
 }
 .color-reveal img {
   width: 100%;
@@ -454,9 +484,15 @@ main > .section {
     background-color 0.25s,
     color 0.25s;
 }
-.carousel__controls button:hover {
+.carousel__controls button:active {
   background: var(--paper);
   color: var(--dark);
+}
+@media (hover: hover) and (pointer: fine) {
+  .carousel__controls button:hover {
+    background: var(--paper);
+    color: var(--dark);
+  }
 }
 .carousel__item {
   position: absolute;
@@ -572,9 +608,15 @@ main > .section {
     background-color 0.25s,
     color 0.25s;
 }
-.libri__zoom:hover {
+.libri__zoom:active {
   background: var(--paper);
   color: var(--brown);
+}
+@media (hover: hover) and (pointer: fine) {
+  .libri__zoom:hover {
+    background: var(--paper);
+    color: var(--brown);
+  }
 }
 .libri__zoom svg {
   width: 1rem;
@@ -727,10 +769,12 @@ main > .section {
     border-color 0.25s,
     box-shadow 0.25s;
 }
-.field input:hover,
-.field select:hover,
-.field textarea:hover {
-  border-color: var(--ink);
+@media (hover: hover) and (pointer: fine) {
+  .field input:hover,
+  .field select:hover,
+  .field textarea:hover {
+    border-color: var(--ink);
+  }
 }
 .field input:focus,
 .field select:focus,
@@ -775,9 +819,14 @@ main > .section {
   background: var(--ink);
   color: #fff;
 }
-.form .form__send:hover {
+.form .form__send:active {
   background: var(--brown);
-  box-shadow: inset 0 0 0 1px var(--ink), 0 0.4rem 1rem rgb(61 55 49 / 0.2);
+}
+@media (hover: hover) and (pointer: fine) {
+  .form .form__send:hover {
+    background: var(--brown);
+    box-shadow: inset 0 0 0 1px var(--ink), 0 0.4rem 1rem rgb(61 55 49 / 0.2);
+  }
 }
 .form__status {
   min-height: 1.2em;
@@ -812,8 +861,10 @@ main > .section {
   color: #fff;
   transition: scale 0.2s;
 }
-.socials a:hover {
-  scale: 1.1;
+@media (hover: hover) and (pointer: fine) {
+  .socials a:hover {
+    scale: 1.1;
+  }
 }
 .socials svg {
   width: 1.3rem;
@@ -1270,19 +1321,14 @@ html:has(dialog[open]) {
   font: 300 1.8rem/1 var(--font-head);
   cursor: pointer;
 }
-.book-view__close:hover {
+.book-view__close:active {
   background: var(--paper);
   color: var(--dark);
 }
-.book-view__hint .for-touch {
-  display: none;
-}
-@media (hover: none) {
-  .book-view__hint .for-mouse {
-    display: none;
-  }
-  .book-view__hint .for-touch {
-    display: inline;
+@media (hover: hover) and (pointer: fine) {
+  .book-view__close:hover {
+    background: var(--paper);
+    color: var(--dark);
   }
 }
 .book-view__hint {
@@ -1318,10 +1364,11 @@ html:has(dialog[open]) {
   .hero__art {
     position: relative;
     inset: auto;
-    height: 80svh;
+    aspect-ratio: 4 / 5; /* più alta tagliava Mina ai lati */
+    max-height: 80svh;
   }
   .hero__art img {
-    object-position: 78% 50%; /* fascia verticale: inquadra Mina */
+    object-position: 87% 50%; /* inquadra Mina, che sta a destra del disegno */
   }
   .hero__note {
     position: static;
@@ -1345,14 +1392,12 @@ html:has(dialog[open]) {
     margin-top: 1rem;
   }
 
-  /* le sezioni sono più alte dello schermo: aggancio solo in prossimità */
+  /* le sezioni sono più alte dello schermo: col dito lo scroll a scatti strattonava la pagina
+     verso l'inizio della sezione, quindi sul telefono si scorre liberamente */
   html:has(main > .section),
-  html:has(.story) {
-    scroll-snap-type: y proximity;
-  }
-  main > .section,
-  .chapter {
-    scroll-snap-stop: normal;
+  html:has(.story),
+  html:has(.gallery) {
+    scroll-snap-type: none;
   }
 
   .racconti .title {
@@ -1379,11 +1424,12 @@ html:has(dialog[open]) {
   .mio__art {
     position: relative;
     inset: auto;
-    aspect-ratio: 9 / 10;
+    aspect-ratio: 4 / 5;
+    max-height: 80svh;
     margin: -1rem calc(-1 * var(--gutter)) 0;
   }
   .mio__art img {
-    object-position: 22% 0; /* inquadra Enea, che sta a sinistra del disegno */
+    object-position: 25% 0; /* Enea (ali comprese) intero e al centro: sta a sinistra del disegno */
   }
   .mio__follow {
     margin-top: 3rem;
@@ -1444,20 +1490,54 @@ html:has(dialog[open]) {
     margin-bottom: 2.5rem;
   }
 
-  html:has(.gallery) {
-    scroll-snap-type: y proximity;
-  }
   .slide {
     display: flex;
     flex-direction: column;
     justify-content: center;
     gap: 2rem;
     padding: 6rem 0 3rem;
-    scroll-snap-stop: normal;
   }
+  /* I disegni sono 16:9 con il soggetto spostato di lato per lasciare posto alle scritte:
+     a tutta larghezza sul telefono il soggetto restava piccolo e decentrato.
+     Qui ogni disegno è ritagliato (--crop) attorno al soggetto (--fx = punto orizzontale da tenere). */
   .slide__art {
     position: relative;
-    aspect-ratio: 16 / 9;
+    aspect-ratio: var(--crop, 1);
+    max-height: 70svh;
+  }
+  .slide__art img {
+    object-position: var(--fx, 50%) 50%;
+  }
+  .slide--ritratto {
+    --fx: 90%;
+  }
+  .slide--arco {
+    --crop: 4 / 5;
+  }
+  .slide--festa {
+    --crop: 4 / 3;
+    --fx: 35%;
+  }
+  .slide--danza {
+    --crop: 4 / 3;
+    --fx: 79%;
+  }
+  .slide--duca {
+    --fx: 21%;
+  }
+  .slide--enea {
+    --fx: 80%;
+  }
+  .slide--lago {
+    --crop: 4 / 5;
+    --fx: 86%;
+  }
+  .slide--eep {
+    --crop: 4 / 5;
+    --fx: 12%;
+  }
+  .slide--kaede {
+    --fx: 62%;
   }
   .slide .slide__text,
   .slide__note,

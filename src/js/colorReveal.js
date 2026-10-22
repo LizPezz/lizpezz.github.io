@@ -19,6 +19,10 @@ const BRUSH = 0.24
 const SPACING = 0.18 // distanza fra due timbri, in frazione della larghezza del timbro
 const FLOW = 0.45 // opacità di ogni timbro
 const FULL = 0.6 // copertura oltre la quale una scritta con data-paint-text è del tutto schiarita
+const HOLD = 180 // ms di dito fermo prima che parta la pennellata (touch)
+const SLOP = 8 // px di movimento del dito entro cui lo si considera ancora fermo
+
+const touchOnly = matchMedia('(hover: none)')
 
 const brush = new Image()
 brush.src = import.meta.env.BASE_URL + 'images/brush.png'
@@ -160,6 +164,22 @@ function setup(el) {
     return [(e.clientX - r.left) / r.width, (e.clientY - r.top) / r.height]
   }
 
+  const begin = (p) => {
+    down = true
+    started = true
+    last = p
+    dab(last, BRUSH)
+  }
+
+  // Col dito lo stesso gesto serve sia a scorrere la pagina sia a colorare. Si colora se il dito
+  // resta fermo per HOLD ms ("tieni premuto e muovi") oppure se parte di lato (in orizzontale
+  // la pagina non scorre comunque); una strisciata verticale veloce invece scorre la pagina.
+  let pending = null
+  const cancelPending = () => {
+    clearTimeout(pending?.timer)
+    pending = null
+  }
+
   el.addEventListener('pointerenter', (e) => {
     if (started || e.pointerType !== 'mouse') return
     started = true
@@ -167,13 +187,25 @@ function setup(el) {
     el.classList.add('is-hinting')
   })
   el.addEventListener('pointerdown', (e) => {
-    if (e.pointerType === 'mouse') e.preventDefault()
-    down = true
-    started = true
-    last = pos(e)
-    dab(last, BRUSH)
+    if (e.pointerType === 'mouse') {
+      e.preventDefault()
+      begin(pos(e))
+      return
+    }
+    cancelPending()
+    const p = pos(e)
+    pending = { x: e.clientX, y: e.clientY, p, timer: setTimeout(() => (cancelPending(), begin(p)), HOLD) }
   })
   el.addEventListener('pointermove', (e) => {
+    if (pending) {
+      const dx = e.clientX - pending.x
+      const dy = e.clientY - pending.y
+      if (Math.hypot(dx, dy) < SLOP) return
+      const { p } = pending
+      cancelPending()
+      if (Math.abs(dy) > Math.abs(dx)) return // strisciata verticale: scorre la pagina
+      begin(p)
+    }
     if (!down) return
     const next = stroke(last, pos(e))
     if (next) last = next
@@ -181,8 +213,29 @@ function setup(el) {
   })
   for (const type of ['pointerup', 'pointercancel', 'pointerleave']) {
     el.addEventListener(type, () => {
+      cancelPending()
       down = false
     })
+  }
+  // mentre si colora la pagina sotto non deve muoversi (né partire il "tira per aggiornare")
+  el.addEventListener(
+    'touchmove',
+    (e) => {
+      if (down && e.cancelable) e.preventDefault()
+    },
+    { passive: false },
+  )
+  // tenendo premuto, Android aprirebbe il menu dell'immagine
+  el.addEventListener('contextmenu', (e) => {
+    if (down || pending) e.preventDefault()
+  })
+
+  // Su touch non c'è il passaggio del mouse: l'invito a colorare compare quando il disegno è sullo schermo
+  if (touchOnly.matches) {
+    new IntersectionObserver(
+      ([entry]) => el.classList.toggle('is-hinting', entry.isIntersecting && !started),
+      { threshold: 0.6 },
+    ).observe(el)
   }
 
   img.onload = schedule
